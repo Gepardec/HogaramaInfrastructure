@@ -1,8 +1,0 @@
----
-  - name: Update cache and upgrade (this can take several minutes, dont worry ;-) )
-    become: yes
-    apt:
-      update_cache: yes
-      upgrade: yes
-    notify: restart
-...
