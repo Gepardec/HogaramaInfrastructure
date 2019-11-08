@@ -1,4 +1,4 @@
-# Contributing to Hogarama
+# Contributing to Hogarama Infrastructure
 
 **First of all: Contributions are welcome!**
 
