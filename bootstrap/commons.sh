@@ -29,7 +29,7 @@ usage_message () {
     
     optional
       --dryrun)                      ... only print commands that would be executed
-      -f | --force)                  ... recreate without promt
+      -f | --force)                  ... recreate without prompt
 
     general
       -h | --help)                   ... print this help text

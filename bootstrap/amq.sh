@@ -158,16 +158,16 @@ main () {
   fi
 
    oc delete --config=/home/.admin cm amq-configs;
-   oc create --config=/home/.admin cm amq-configs \ 
-    --from-file=configs/amq/bootstrap.xml \
-    --from-file=configs/amq/broker.xml \
-    --from-file=configs/amq/login.config \
-    --from-file=configs/amq/entrypoint.sh
+   oc create --config=/home/.admin cm amq-configs \
+    --from-file=${TOPLEVEL_DIR}/configs/amq/bootstrap.xml \
+    --from-file=${TOPLEVEL_DIR}/configs/amq/broker.xml \
+    --from-file=${TOPLEVEL_DIR}/configs/amq/login.config \
+    --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
 
    oc delete --config=/home/.admin secret amq-secrets;
    oc create --config=/home/.admin secret generic amq-secrets \
-     --from-file=secrets/amq/broker.jks \
-     --from-file=secrets/amq/keycloak.json
+     --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.jks \
+     --from-file=${TOPLEVEL_DIR}/secrets/amq/keycloak.json
 
   create_oc_resource "admin" ${namespace} "resources/amq/imagestream.yml"
   create_oc_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
