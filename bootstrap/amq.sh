@@ -169,6 +169,11 @@ main () {
      --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.jks \
      --from-file=${TOPLEVEL_DIR}/secrets/amq/keycloak.json
 
+  oc delete --config=/home.admin secret amq-credentials -n hogarama;
+  oc create --config=home/.admin secret generic amq-credential -n hogarama \
+      --from-file=${TOPLEVEL_DIR}/secrets/amq/amq-credentials.yml
+
+  create_oc_resource "admin" ${namespace} "secrets/amq/amq-credentials.yml"
   create_oc_resource "admin" ${namespace} "resources/amq/imagestream.yml"
   create_oc_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
   create_oc_resource "admin" ${namespace} "resources/amq/service.yml"
