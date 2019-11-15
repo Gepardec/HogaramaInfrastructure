@@ -158,14 +158,14 @@ main () {
   fi
 
    oc delete --config=/home/.admin cm amq-configs;
-   oc create --config=/home/.admin cm amq-configs \
+   oc create --config=/home/.admin cm amq-configs -n hogarama \
     --from-file=${TOPLEVEL_DIR}/configs/amq/bootstrap.xml \
     --from-file=${TOPLEVEL_DIR}/configs/amq/broker.xml \
     --from-file=${TOPLEVEL_DIR}/configs/amq/login.config \
     --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
 
    oc delete --config=/home/.admin secret amq-secrets;
-   oc create --config=/home/.admin secret generic amq-secrets \
+   oc create --config=/home/.admin secret generic amq-secrets -n hogarama \
      --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.jks \
      --from-file=${TOPLEVEL_DIR}/secrets/amq/keycloak.json
 
