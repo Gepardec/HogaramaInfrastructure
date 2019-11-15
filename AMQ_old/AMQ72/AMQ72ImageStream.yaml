@@ -5,13 +5,11 @@ metadata:
     labels:
       app: amq72
     name: amq72
-	namespace: hogarama
 spec:
     lookupPolicy:
       local: false
     tags:
     - annotations:
-        openshift.io/generated-by: OpenShiftWebConsole
         openshift.io/imported-from: registry.access.redhat.com/amq-broker-7/amq-broker-72-openshift
       from:
         kind: DockerImage

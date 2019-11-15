@@ -29,7 +29,7 @@ usage_message () {
     
     optional
       --dryrun)                      ... only print commands that would be executed
-      -f | --force)                  ... recreate without promt
+      -f | --force)                  ... recreate without prompt
 
     general
       -h | --help)                   ... print this help text
@@ -157,9 +157,23 @@ main () {
     fi
   fi
 
-  create_oc_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
-  create_oc_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
-  create_oc_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
+   oc delete --config=/home/.admin cm amq-configs;
+   oc create --config=/home/.admin cm amq-configs \ 
+    --from-file=configs/amq/bootstrap.xml \
+    --from-file=configs/amq/broker.xml \
+    --from-file=configs/amq/login.config \
+    --from-file=configs/amq/entrypoint.sh
+
+   oc delete --config=/home/.admin secret amq-secrets;
+   oc create --config=/home/.admin secret generic amq-secrets \
+     --from-file=secrets/amq/broker.jks \
+     --from-file=secrets/amq/keycloak.json
+
+  create_oc_resource "admin" ${namespace} "resources/amq/imagestream.yml"
+  create_oc_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
+  create_oc_resource "admin" ${namespace} "resources/amq/service.yml"
+  create_oc_resource "admin" ${namespace} "resources/amq/route.yml"
+
 }
 
 main $@
