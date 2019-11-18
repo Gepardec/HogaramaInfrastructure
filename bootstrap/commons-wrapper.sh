@@ -5,7 +5,7 @@ ABOVE_SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && cd .. &
 
 docker run --rm -it \
   -v ${ABOVE_SCRIPT_DIR}:/home/hogaramaInfra \
-  gepardec/oc /home/hogaramaInfra/bootstrap/commons.sh \
-    --oc-admin-token "gHepACLu_mUfAxhP3FvPsl4V_ZyPJYjG3BW8M3FKzVc" \
+  quay.io/openshift/origin-cli:latest /home/hogaramaInfra/bootstrap/commons.sh \
+    --oc-admin-token "dDrZg1tvISPMaJekho7buCfL9aJBgD5n99Jm62l-tDo" \
     --oc-cluster https://api.learningfriday.aws.openshift.gepardec.com:6443 \
     --namespace commons
