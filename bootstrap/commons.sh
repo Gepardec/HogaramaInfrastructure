@@ -58,7 +58,7 @@ execute () {
 readonly -f execute
 [ "$?" -eq "0" ] || return $?
 
-create_oc_resource () {
+oc_create_resource () {
   local token=${1}
   local namespace=${2}
   local file=${3}
@@ -80,7 +80,34 @@ create_oc_resource () {
     fi
   fi
 }
-readonly -f create_oc_resource
+readonly -f oc_create_resource
+[ "$?" -eq "0" ] || return $?
+
+
+oc_create_from_template () {
+  local token=${1}
+  local namespace=${2}
+  local file=${3}
+  local param=${4}
+
+  if ! execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f - 2> /dev/null"; then
+    if ${FLAG_FORCE}; then
+      execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} delete -n ${namespace} --wait=true -f -"
+      execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f -"
+    else
+      echo "It seems the resource(s) defined in \"${TOPLEVEL_DIR}/${file}\" already exists."
+      echo "Do you really want to recreate the resource(s) from scratch?"
+      read -p "Are you sure? [y/N]: " -r
+      if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+        execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} delete -n ${namespace} --wait=true -f -"
+        execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f -"
+      else
+        echo "resource(s) unchanged"
+      fi
+    fi
+  fi
+}
+readonly -f oc_create_from_template
 [ "$?" -eq "0" ] || return $?
 
 main () {
@@ -157,9 +184,9 @@ main () {
     fi
   fi
 
-  create_oc_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
-  create_oc_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
-  create_oc_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
+  oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
+  oc_create_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
+  oc_create_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
 }
 
 main $@
