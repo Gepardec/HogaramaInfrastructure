@@ -46,3 +46,7 @@ target/
 
 #MacOS
 .DS_Store
+
+#oc config
+.aws
+.itandtel
