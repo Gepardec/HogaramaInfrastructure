@@ -26,6 +26,7 @@ usage_message () {
       --namespace)                   ... openshift project or kubernetes namespace
       --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
       --oc-cluster)                  ... e.g. https://api.crc.testing:6443
+      --git-branch)                  ... specify the git branch for oc resource references
     
     optional
       --dryrun)                      ... only print commands that would be executed
@@ -58,7 +59,7 @@ execute () {
 readonly -f execute
 [ "$?" -eq "0" ] || return $?
 
-create_oc_resource () {
+oc_create_resource () {
   local token=${1}
   local namespace=${2}
   local file=${3}
@@ -80,17 +81,45 @@ create_oc_resource () {
     fi
   fi
 }
-readonly -f create_oc_resource
+readonly -f oc_create_resource
+[ "$?" -eq "0" ] || return $?
+
+
+oc_create_from_template () {
+  local token=${1}
+  local namespace=${2}
+  local file=${3}
+  local param=${4}
+
+  if ! execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f - 2> /dev/null"; then
+    if ${FLAG_FORCE}; then
+      execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} delete -n ${namespace} --wait=true -f -"
+      execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f -"
+    else
+      echo "It seems the resource(s) defined in \"${TOPLEVEL_DIR}/${file}\" already exists."
+      echo "Do you really want to recreate the resource(s) from scratch?"
+      read -p "Are you sure? [y/N]: " -r
+      if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+        execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} delete -n ${namespace} --wait=true -f -"
+        execute "oc --config=/home/.${token} process -f ${TOPLEVEL_DIR}/${file} -n ${namespace} ${param} | oc --config=/home/.${token} create -n ${namespace} -f -"
+      else
+        echo "resource(s) unchanged"
+      fi
+    fi
+  fi
+}
+readonly -f oc_create_from_template
 [ "$?" -eq "0" ] || return $?
 
 main () {
   # initial values
+  local git_branch=""
   local namespace=""
   local oc_admin_token=""
   local oc_cluster=""
 
   # getopts
-  local opts=`getopt -o hf --long oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun -- "$@"`
+  local opts=`getopt -o hf --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun -- "$@"`
   local opts_return=$?
   if [ ${opts_return} != 0 ]; then
       echo
@@ -113,6 +142,10 @@ main () {
           namespace=$2
           shift 2
           ;;
+      --git-branch)
+          git_branch=$2
+          shift 2
+          ;;
       -h | --help)
           usage_message
           exit 0
@@ -132,7 +165,7 @@ main () {
   done
   # Verify that all required options are set
   # if [ -z "$VAR" ]; This will return true if a variable is unset or set to the empty string ("").
-  if [ -z "${namespace}" ] || [ -z "${oc_admin_token}" ] || [ -z "${oc_cluster}" ]; then
+  if [ -z "${git_branch}" ] || [ -z "${namespace}" ] || [ -z "${oc_admin_token}" ] || [ -z "${oc_cluster}" ]; then
       echo
       (>&2 echo "please provide all required options")
       echo
@@ -169,15 +202,16 @@ main () {
     --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.jks \
     --from-file=${TOPLEVEL_DIR}/secrets/amq/keycloak.json
 
-  oc delete --config=/home.admin secret amq-credentials -n ${namespace};
-  oc create --config=home/.admin secret generic amq-credential -n ${namespace} \
-    --from-file=${TOPLEVEL_DIR}/secrets/amq/amq-credentials.yml
+  oc delete --config=/home/.admin secret amq-credentials -n ${namespace};
+  oc create --config=home/.admin secret generic amq-credentials -n ${namespace} \
+    --from-literal=AMQ_USER="amq" \
+    --from-literal=AMQ_PASSWORD="amq@123"
 
-  create_oc_resource "admin" ${namespace} "secrets/amq/amq-credentials.yml"
-  create_oc_resource "admin" ${namespace} "resources/amq/imagestream.yml"
-  create_oc_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
-  create_oc_resource "admin" ${namespace} "resources/amq/service.yml"
-  create_oc_resource "admin" ${namespace} "resources/amq/route.yml"
+  oc_create_from_template "admin" ${namespace} "resources/amq/imagestream.yml"
+  oc_create_from_template "admin" ${namespace} "resources/amq/buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
+  oc_create_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/service.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/route.yml"
 
 }
 

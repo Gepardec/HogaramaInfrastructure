@@ -43,3 +43,6 @@ target/
 
 # Ansible
 *.retry
+
+#MacOS
+.DS_Store
