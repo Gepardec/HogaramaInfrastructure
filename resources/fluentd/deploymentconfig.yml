@@ -19,7 +19,7 @@ spec:
         - env:
             - name: TZ
               value: Europe/Vienna
-          image: fluentd
+          image: fluentd-hogarama:latest
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -60,7 +60,7 @@ spec:
           #   claimName: fluentd-log-claim
         - secret:
             defaultMode: 420
-            name: fluentd-secret
+            secretName: fluentd-secret
           name: fluentd-config-volume
   test: false
   triggers:
@@ -70,6 +70,6 @@ spec:
           - fluentd
         from:
           kind: ImageStreamTag
-          name: 'fluentd:latest'
+          name: 'fluentd-hogarama:latest'
       type: ImageChange
     - type: ConfigChange

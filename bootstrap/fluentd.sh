@@ -190,13 +190,16 @@ main () {
     fi
   fi
 
+#  oc delete --config=/home/.admin serviceaccount anyuid-builder -n ${namespace};
+#  oc create --config=/home/.admin serviceaccount anyuid-builder -n ${namespace};
+
   oc delete --config=/home/.admin secret fluentd-secret -n ${namespace};
   oc create --config=/home/.admin secret generic fluentd-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
 
   oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
   #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
-  oc_create_resource "admin" ${namespace} "resources/fluentd/buildconfig.yml"
+  oc_create_from_template "admin" ${namespace} "resources/fluentd/buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
   oc_create_resource "admin" ${namespace} "resources/fluentd/deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/fluentd/service.yml"
 

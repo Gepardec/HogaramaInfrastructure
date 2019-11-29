@@ -1,6 +1,8 @@
-FROM fluent/fluentd:edge-debian
+FROM DUMMY
 
-RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
+USER root
+
+RUN buildDeps="make gcc g++ libc-dev ruby-dev" \
  && apt-get update \
  && apt-get install -y --no-install-recommends $buildDeps \
  && sudo gem install \
@@ -15,13 +17,15 @@ RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
  && rm -rf /var/lib/apt/lists/* \
            /home/fluent/.gem/ruby/2.3.0/cache/*.gem
 
-# RUN useradd fluent -d /home/fluent -m -U
-# RUN chown -R fluent:fluent /home/fluent
+RUN useradd fluent -d /home/fluent -m -U
+RUN chown -R fluent:fluent /home/fluent
 
-#COPY config/fluent.conf /fluentd/etc/
 COPY entrypoint.sh /bin/
 RUN chmod +x /bin/entrypoint.sh
 
+RUN chown -R fluent:fluent /fluentd
+
+USER fluent
 WORKDIR /home/fluent
 
 ENV FLUENTD_OPT="" 

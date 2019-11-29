@@ -23,6 +23,6 @@ items:
         name: fluent/fluentd:edge-debian
       generation: 1
       importPolicy: {}
-      name: latest
+      name: edge-debian
       referencePolicy:
         type: Source

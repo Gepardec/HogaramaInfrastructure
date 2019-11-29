@@ -1,41 +1,56 @@
 apiVersion: v1
-kind: BuildConfig
+kind: Template
 metadata:
   labels:
     app: fluentd
   name: fluentd
-spec:
-  output:
-    to:
-      kind: ImageStreamTag
-      name: 'fluentd-hogarama:latest'
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    contextDir: resources/fluentd
-    git:
-      uri: 'https://github.com/Gepardec/HogaramaInfrastructure/'
-    type: Git
-  strategy:
-    dockerStrategy:
-      from:
-        kind: ImageStreamTag
-        name: 'fluentd:edge-debian'
-    type: Docker
-  triggers:
-    - github:
-        secret: 4m9EY9lErQRrs8LJjudP
-      type: GitHub
-    - generic:
-        secret: A2YAGDWxu2zgCfjIyo25
-      type: Generic
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - fluentd
-        from:
+parameters:
+  - name: GIT_REPO
+    description: "please provide the git repo url"
+    value: https://github.com/Gepardec/HogaramaInfrastructure
+  - name: GIT_BRANCH
+    description: "please provide the git branch"
+    value: master
+objects:
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      labels:
+        app: fluentd
+      name: fluentd
+    spec:
+      serviceAccount: anyuid-builder
+      output:
+        to:
           kind: ImageStreamTag
-          name: 'fluentd:edge-debian'
-      type: ImageChange
-    - type: ConfigChange
+          name: 'fluentd-hogarama:latest'
+      postCommit: {}
+      resources: {}
+      runPolicy: Serial
+      source:
+        git:
+          uri: "${GIT_REPO}"
+          ref: "${GIT_BRANCH}"
+        contextDir: "resources/fluentd"
+      strategy:
+        dockerStrategy:
+          from:
+            kind: ImageStreamTag
+            name: 'fluentd:edge-debian'
+        type: Docker
+      triggers:
+        - github:
+            secret: 4m9EY9lErQRrs8LJjudP
+          type: GitHub
+        - generic:
+            secret: A2YAGDWxu2zgCfjIyo25
+          type: Generic
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - fluentd
+            from:
+              kind: ImageStreamTag
+              name: 'fluentd:edge-debian'
+          type: ImageChange
+        - type: ConfigChange
