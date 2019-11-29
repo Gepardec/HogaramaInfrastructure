@@ -2,7 +2,7 @@ FROM DUMMY
 
 USER root
 
-RUN buildDeps="make gcc g++ libc-dev ruby-dev" \
+RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
  && apt-get update \
  && apt-get install -y --no-install-recommends $buildDeps \
  && sudo gem install \
