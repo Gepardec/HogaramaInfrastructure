@@ -169,12 +169,7 @@ main () {
       echo
       (>&2 echo "please provide all required options")
       echo
-      usage_message  oc_create_resource "admin" ${namespace} "resources/fluentd/configmap.yml"
-#  oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
-#  #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
-#  oc_create_resource "admin" ${namespace} "resources/fluentd/deploymentconfig.yml"
-#  oc_create_resource "admin" ${namespace} "resources/fluentd/service.yml"
-#  oc_create_resource "admin" ${namespace} "resources/fluentd/route.yml"
+      usage_message
       return 1
   fi
 
@@ -199,7 +194,11 @@ main () {
   oc create --config=/home/.admin secret generic fluentd-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
 
-#
+  oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
+  #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
+  oc_create_resource "admin" ${namespace} "resources/fluentd/buildconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/fluentd/deploymentconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/fluentd/service.yml"
 
 }
 
