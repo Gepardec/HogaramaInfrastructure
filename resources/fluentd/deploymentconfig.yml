@@ -46,6 +46,8 @@ spec:
           volumeMounts:
             - mountPath: /fluentd/log
               name: fluentd-log-volume
+            - mountPath: /fluentd/etc
+              name: fluentd-config-volume
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -53,8 +55,13 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: fluentd-log-volume
-          persistentVolumeClaim:
-            claimName: fluentd-log-claim
+          emptyDir: {}
+          # persistentVolumeClaim:
+          #   claimName: fluentd-log-claim
+        - secret:
+            defaultMode: 420
+            name: fluentd-secret
+          name: fluentd-config-volume
   test: false
   triggers:
     - imageChangeParams:
@@ -64,37 +71,5 @@ spec:
         from:
           kind: ImageStreamTag
           name: 'fluentd:latest'
-          namespace: 57-hogarama
-        lastTriggeredImage: >-
-          docker-registry.default.svc:5000/57-hogarama/fluentd@sha256:e04e5e2b836e6081c352bd736daf1839caa362bc3f4ab166ab2244f85bf51e83
       type: ImageChange
     - type: ConfigChange
-status:
-  availableReplicas: 1
-  conditions:
-    - lastTransitionTime: '2019-11-13T06:01:14Z'
-      lastUpdateTime: '2019-11-13T06:01:15Z'
-      message: replication controller "fluentd-241" successfully rolled out
-      reason: NewReplicationControllerAvailable
-      status: 'True'
-      type: Progressing
-    - lastTransitionTime: '2019-11-15T14:17:50Z'
-      lastUpdateTime: '2019-11-15T14:17:50Z'
-      message: Deployment config has minimum availability.
-      status: 'True'
-      type: Available
-  details:
-    causes:
-      - imageTrigger:
-          from:
-            kind: DockerImage
-            name: >-
-              docker-registry.default.svc:5000/57-hogarama/fluentd@sha256:e04e5e2b836e6081c352bd736daf1839caa362bc3f4ab166ab2244f85bf51e83
-        type: ImageChange
-    message: image change
-  latestVersion: 241
-  observedGeneration: 427
-  readyReplicas: 1
-  replicas: 1
-  unavailableReplicas: 0
-  updatedReplicas: 1

@@ -1,19 +1,28 @@
 apiVersion: v1
-kind: ImageStream
+kind: List
 metadata:
-  generation: 1
-  name: fluentd
-spec:
-  lookupPolicy:
-    local: false
-  tags:
-  - from:
-      kind: DockerImage
-      name: fluent/fluentd:edge-debian
-    generation: 1
-    importPolicy: {}
-    name: edge-debian
-    referencePolicy:
-      type: Source
-status:
-  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/fluentd
+  name: fluentd-imagestream
+items:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: fluentd-hogarama
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: fluentd
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - from:
+        kind: DockerImage
+        name: fluent/fluentd:edge-debian
+      generation: 1
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
