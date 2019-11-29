@@ -17,8 +17,8 @@ RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
  && rm -rf /var/lib/apt/lists/* \
            /home/fluent/.gem/ruby/2.3.0/cache/*.gem
 
-RUN useradd fluent -d /home/fluent -m -U
-RUN chown -R fluent:fluent /home/fluent
+#RUN useradd fluent -d /home/fluent -m -U
+#RUN chown -R fluent:fluent /home/fluent
 
 COPY entrypoint.sh /bin/
 RUN chmod +x /bin/entrypoint.sh
