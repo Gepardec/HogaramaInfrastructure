@@ -39,7 +39,7 @@ objects:
             value: hogajamadb
           - name: MONGODB_ADMIN_PASSWORD
             value: ${MONGODB_ADMIN_PASSWORD}
-          image: registry.access.redhat.com/rhscl/mongodb-32-rhel7@sha256:4143584de718ef477fe03e3ae15985c68e0ce9dca8ba089dfa5927e800e59e69
+          image: mongodb-32-rhel7@sha256:4143584de718ef477fe03e3ae15985c68e0ce9dca8ba089dfa5927e800e59e69
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
