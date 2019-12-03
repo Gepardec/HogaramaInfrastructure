@@ -2,13 +2,6 @@ language: java
 jdk:
 - openjdk8
 
-addons:
-  sonarcloud:
-    organization: "gepardec"
-    token: $SONAR_TOKEN
 scripts:
   - echo "Hello World"
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+
