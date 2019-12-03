@@ -1,7 +1,22 @@
-language: java
-jdk:
-- openjdk8
+---
+version: "~> 1.0"
 
-scripts:
-  - echo "Hello World"
+os: linux
 
+language: shell
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  slack:
+    rooms:
+      secure: "tTC3O33XDH0uNhlfLJw5684EuhmhC+mbNyveIqmSVHzUatteSiCohub7qrlfSIUwNFNKx3RL6iCUMymBTRh4NnX9+h9bVvaldA13enGwoV6OexPuXHsAK98YQw1gvInaih+d2971qYP6igOPNSkSI4xMrEKKBZSddGXBMciBANWnStDjycpr/ocHuy60ZlUJI5HLOL/gerEl7UuATCWzNlpKoAPAZexNnXAZedgFleyhVHDa5TEKuwKUdIflzU91VJW8y9a3056m1u3BYZf7leqPLV/IwsbnDqcTdkLcbp4QU/IQrB+UT2NVXPyx76pBgP6bXw0oWQylKZ3itDDpLTSga85DmXRQu9GDPdPHNvcZS8q1QwsdzVhPw1GWMGB9CtfcqA1PXRsvldlN06DKhoUj/aGIX4MXHkaE6kCjP3tYZY+8Dmdanpj86qZg0pGJQgXwHEKT/6R8FLc3FjN7UqIgBmV3cWGDf4MSmSBiEkDsIuEAvTMHR7lEeb9gwvelhuzNQrzBhOr8jYeB2uTRqpsozGC+A3GkMwOTMw75hvMRsbjrHyTSGAdbKl+BOc5yywlF/B/hZkCU2PSuSuio0bWaqA8DSeAZ04CiTJpPX1yxA7Kp1OM0Ob8wC1JQonEvqQja6+cap0mQDwi/qZ0dF6QvQW41nMhxpv/y7/5r/q4="
+    template:
+      - "%{commit_subject}"
+      - "build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) @%{branch}"
+      - "by %{author} %{result} in %{duration}"
+    on_success: never
+    on_failure: always
+script:
+  - travis_terminate 0
