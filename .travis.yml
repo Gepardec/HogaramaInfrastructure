@@ -19,4 +19,5 @@ notifications:
     on_success: never
     on_failure: always
 script:
+  - travis_wait 12 sleep 660000
   - travis_terminate 0
