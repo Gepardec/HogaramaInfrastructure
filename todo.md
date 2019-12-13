@@ -6,3 +6,5 @@
 - Hogajama (JBoss Applikation)
 - PVCs
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
+- Nexus?
+- Jenkins?
