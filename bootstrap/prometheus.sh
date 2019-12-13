@@ -190,13 +190,11 @@ main () {
     fi
   fi
 
-  oc_create_resource "admin" ${namespace} "resources/prometheus/configmap.yml"
-  oc_create_resource "admin" ${namespace} "resources/prometheus/imagestream.yml"
-  #oc_create_resource "admin" ${namespace} "resources/prometheus/pvc.yml"
-  oc_create_resource "admin" ${namespace} "resources/prometheus/deploymentconfig.yml"
-  oc_create_resource "admin" ${namespace} "resources/prometheus/service.yml"
+  oc delete --config=/home/.admin secret prometheus-scrape-config -n ${namespace};
+  oc create --config=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
+  
+  oc_create_resource "admin" ${namespace} "resources/prometheus/crd.yml"
   oc_create_resource "admin" ${namespace} "resources/prometheus/route.yml"
-
 }
 
 main $@
