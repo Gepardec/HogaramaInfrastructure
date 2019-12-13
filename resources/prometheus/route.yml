@@ -6,9 +6,9 @@ metadata:
   name: prometheus
 spec:
   port:
-    targetPort: 9090-tcp
+    targetPort: web
   to:
     kind: Service
-    name: prometheus-hogarama
+    name: prometheus-operated
     weight: 100
   wildcardPolicy: None

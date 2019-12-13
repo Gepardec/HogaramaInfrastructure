@@ -1,5 +1,5 @@
 #!/bin/sh
-    
+
 #######################
 # READ ONLY VARIABLES #
 #######################
@@ -27,7 +27,7 @@ usage_message () {
       --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
       --oc-cluster)                  ... e.g. https://api.crc.testing:6443
       --git-branch)                  ... specify the git branch for oc resource references
-    
+
     optional
       --dryrun)                      ... only print commands that would be executed
       -f | --force)                  ... recreate without prompt
@@ -36,14 +36,14 @@ usage_message () {
       -h | --help)                   ... print this help text
     """
 }
-# readonly definition of a function throws an error if another function 
+# readonly definition of a function throws an error if another function
 # with the same name is defined a second time
 readonly -f usage_message
 [ "$?" -eq "0" ] || return $?
 
 # execute $COMMAND [$DRYRUN=false]
 # if command and dryrun=true are provided the command will be execuded
-# if command and dryrun=false (or no second argument is provided) 
+# if command and dryrun=false (or no second argument is provided)
 # the function will only print the command the command to stdout
 execute () {
   local exec_command=$1
@@ -130,11 +130,11 @@ main () {
   eval set -- "$opts"
   while true ; do
       case "$1" in
-      --oc-admin-token)  
+      --oc-admin-token)
           oc_admin_token=$2
           shift 2
           ;;
-      --oc-cluster) 
+      --oc-cluster)
           oc_cluster=$2
           shift 2
           ;;
@@ -190,13 +190,8 @@ main () {
     fi
   fi
 
-  oc_create_resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
+  oc_create_resource "admin" ${namespace} "resources/hogarama-commons/operator-group.yml"
 
-  oc delete --config=/home/.admin secret prometheus-scrape-config -n ${namespace};
-  oc create --config=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
-  
-  oc_create_resource "admin" ${namespace} "resources/prometheus/crd.yml"
-  oc_create_resource "admin" ${namespace} "resources/prometheus/route.yml"
 }
 
 main $@
