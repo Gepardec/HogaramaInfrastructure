@@ -6,7 +6,7 @@ metadata:
   name: prometheus
 spec:
   port:
-    targetPort: 9090-tcp
+    targetPort: web
   to:
     kind: Service
     name: prometheus-operated
