@@ -13,6 +13,10 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
   oc_create_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
   oc_create_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
+
+  oc_create_resource "admin" ${namespace} "resources/hogarama-commons/anyuid-builder-serviceaccount.yml"
+  oc --config=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
+  oc --config=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
 }
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
