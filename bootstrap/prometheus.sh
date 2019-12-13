@@ -190,6 +190,8 @@ main () {
     fi
   fi
 
+  oc_create_resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
+
   oc delete --config=/home/.admin secret prometheus-scrape-config -n ${namespace};
   oc create --config=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
   

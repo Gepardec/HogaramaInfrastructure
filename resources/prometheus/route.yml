@@ -9,6 +9,6 @@ spec:
     targetPort: 9090-tcp
   to:
     kind: Service
-    name: prometheus-hogarama
+    name: prometheus-operated
     weight: 100
   wildcardPolicy: None
