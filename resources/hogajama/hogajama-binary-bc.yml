@@ -18,7 +18,6 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: hogajama-test
         name: 's2i-builder-maven:latest'
       env:
         - name: BUILDER_CONTEXT_DIR
