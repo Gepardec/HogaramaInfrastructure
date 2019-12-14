@@ -8,3 +8,4 @@
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
 - Nexus?
 - Jenkins?
+- Configure GitHub webhook for hogajama-binary build

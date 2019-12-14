@@ -10,4 +10,6 @@ ${SCRIPT_DIR}/prometheus-wrapper.sh
 ${SCRIPT_DIR}/grafana-wrapper.sh
 ${SCRIPT_DIR}/mongodb-wrapper.sh
 ${SCRIPT_DIR}/fluentd-wrapper.sh
+${SCRIPT_DIR}/hogajama-wrapper.sh
+
 
