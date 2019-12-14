@@ -42,6 +42,7 @@ objects:
         type: Git
         git:
           uri: 'https://github.com/Gepardec/Hogarama'
+          ref: "${GIT_BRANCH}"
       triggers:
         - type: GitHub
           github:
