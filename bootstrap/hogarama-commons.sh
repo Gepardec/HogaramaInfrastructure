@@ -11,6 +11,9 @@ oc_setup() {
   local oc_cluster=${4}
 
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/operator-group.yml"
+  oc_create_resource "admin" ${namespace} "resources/hogarama-commons/anyuid-builder-serviceaccount.yml"
+  oc --config=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
+  oc --config=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
 }
 
 main $@
