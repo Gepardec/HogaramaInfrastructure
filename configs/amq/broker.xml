@@ -149,7 +149,8 @@ under the License.
 
          <!-- MQTT Acceptor -->
          <acceptor name="mqtt">tcp://0.0.0.0:1883?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=MQTT;useEpoll=true</acceptor>
-		 
+
+         <!-- TODO: aktuell scheint aufgrund eines SSL-Bugs in der Oracle JDK die verwendete SSL Version blockiert zu werden. Überlegen wie wir damit umgehen -->
 		 <!-- MQTT SSL Acceptor -->
          <acceptor name="mqtt-ssl">tcp://0.0.0.0:8883?sslEnabled=true;keyStorePath=/home/jboss/broker/etc/broker.jks;keyStorePassword=keystore;tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=MQTT;useEpoll=true</acceptor>
 

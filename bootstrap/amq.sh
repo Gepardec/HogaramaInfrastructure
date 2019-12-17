@@ -31,7 +31,8 @@ oc_setup() {
   oc_create_from_template "admin" ${namespace} "resources/amq/buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
   oc_create_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/service.yml"
-  oc_create_resource "admin" ${namespace} "resources/amq/route.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/mqtt-route.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/management-route.yml"
 }
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
