@@ -13,6 +13,7 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
   oc_create_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
   oc_create_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
+  oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-bc.yml"
 
 }
 readonly -f oc_setup
