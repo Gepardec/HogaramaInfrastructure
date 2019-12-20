@@ -10,3 +10,8 @@
 - Nexus?
 - Jenkins?
 - Configure GitHub webhook for hogajama-binary build
+- Instance Scheduler
+    - Script Scheduler creation
+    - Add/Remove instances
+    - Add/Remove periods/schedulers
+    - Script for starting instance/disabling scheduler and vice versa
