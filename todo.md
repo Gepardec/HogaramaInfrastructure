@@ -16,3 +16,17 @@
     - Add/Remove instances
     - Add/Remove periods/schedulers
     - Script for starting instance/disabling scheduler and vice versa
+    
+- Hogajama: 
+    - Script current setup:
+        - Operator
+        - WildFly Server CustomResourceDefinition
+        - Buildconfigs
+            - hogajama binary
+            - hogajama run
+            - s2i-builder-maven #TODO: umbauen auf Dockerhub
+        - Imagestreams
+            - maven
+            - 
+        - standalone-configmap
+        - 
