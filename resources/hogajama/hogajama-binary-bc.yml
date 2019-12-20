@@ -36,7 +36,7 @@ objects:
             - name: BUILDER_CONTEXT_DIR
               value: Hogajama
             - name: BUILDER_MVN_OPTIONS
-              value: '-P openshift'
+              value: '-P ocp-aws'
       postCommit: {}
       source:
         type: Git
