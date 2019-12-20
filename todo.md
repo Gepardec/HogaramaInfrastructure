@@ -27,6 +27,6 @@
             - s2i-builder-maven #TODO: umbauen auf Dockerhub
         - Imagestreams
             - maven
-            - 
         - standalone-configmap
-        - 
+        - Operator und standalone funktionieren noch nicht. Entrypoint nicht executable
+            LÖSUNG UNKLAR

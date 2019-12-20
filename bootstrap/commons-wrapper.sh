@@ -8,6 +8,7 @@ docker run --rm -it \
   quay.io/openshift/origin-cli:latest /home/hogaramaInfra/bootstrap/commons.sh \
     --oc-admin-token "$(oc whoami -t)" \
     --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
-    --namespace commons \
+    --namespace hogarama \
     --git-branch $(git branch | grep \* | cut -d ' ' -f2) \
     --force
+# TODO: change back to namespace commons as soon as we have fixed cross-project image-puller writes for builder service-account
