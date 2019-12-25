@@ -24,10 +24,10 @@ spec:
     dockerfile: |-
       FROM image-registry.openshift-image-registry.svc:5000/jboss-eap71-openshift
       USER root
-      RUN echo "#!/bin/bash \ncp -f /opt/eap/standalone/configuration/standalone.xml /opt/eap/standalone/configuration/standalone-openshift.xml \n/opt/eap/bin/openshift-launch.sh" >> /opt/bin/entrypoint.sh && \
-        chmod +x /opt/bin/entrypoint.sh
+      RUN echo "#!/bin/bash \ncp -f /opt/eap/standalone/configuration/standalone.xml /opt/eap/standalone/configuration/standalone-openshift.xml \n/opt/eap/bin/openshift-launch.sh" >> /opt/eap/bin/entrypoint.sh && \
+        chmod +x /opt/eap/bin/entrypoint.sh
       USER jboss
-      ENTRYPOINT [ "/opt/bin/entrypoint.sh" ]
+      ENTRYPOINT [ "/opt/eap/bin/entrypoint.sh" ]
   postCommit: {}
   triggers:
     - type: GitHub
