@@ -1,9 +1,9 @@
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: jboss-eap-7-build
+  name: jboss-eap-7-bc
   labels:
-    build: jboss-eap-7-build
+    build: jboss-eap-7-bc
 spec:
   nodeSelector: null
   output:
@@ -14,21 +14,24 @@ spec:
   successfulBuildsHistoryLimit: 5
   failedBuildsHistoryLimit: 5
   strategy:
-    sourceStrategy:
+    type: Docker
+    dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: 'jboss-eap71-openshift:1.3'
-      type: Source
+        name: >-
+          image-registry.openshift-image-registry.svc:5000/jboss-eap71-openshift:1.3
+  postCommit: {}
   source:
     type: Dockerfile
     dockerfile: |-
-      FROM image-registry.openshift-image-registry.svc:5000/jboss-eap71-openshift
-      USER root
-      RUN echo "#!/bin/bash \ncp -f /opt/eap/standalone/configuration/standalone.xml /opt/eap/standalone/configuration/standalone-openshift.xml \n/opt/eap/bin/openshift-launch.sh" >> /opt/eap/bin/entrypoint.sh && \
-        chmod +x /opt/eap/bin/entrypoint.sh
+      FROM jboss-eap71-openshift:1.3
       USER jboss
-      ENTRYPOINT [ "/opt/eap/bin/entrypoint.sh" ]
-  postCommit: {}
+      RUN mkdir -p /opt/eap/bin && \
+        echo -e "#!/bin/bash \
+        \ncp -f /opt/eap/standalone/configuration/standalone.xml \
+        /opt/eap/standalone/configuration/standalone-openshift.xml \
+        \n/opt/eap/bin/openshift-launch.sh" > /opt/eap/bin/entrypoint.sh && \
+        chmod +x /opt/eap/bin/entrypoint.sh
   triggers:
     - type: GitHub
       github:
