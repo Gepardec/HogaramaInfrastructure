@@ -10,9 +10,6 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  #  oc delete --config=/home/.admin serviceaccount anyuid-builder -n ${namespace};
-  #  oc create --config=/home/.admin serviceaccount anyuid-builder -n ${namespace};
-
   oc delete --config=/home/.admin secret fluentd-secret -n ${namespace};
   oc create --config=/home/.admin secret generic fluentd-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
