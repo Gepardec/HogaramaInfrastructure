@@ -8,6 +8,6 @@ docker run --rm -it \
   quay.io/openshift/origin-cli:latest /home/hogaramaInfra/bootstrap/fluentd.sh \
     --oc-admin-token "$(oc whoami -t)" \
     --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
-    --namespace hogarama \
+    --namespace hogajama-test \
     --git-branch $(git branch | grep \* | cut -d ' ' -f2) \
     --force
