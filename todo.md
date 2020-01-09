@@ -5,9 +5,10 @@
 - AMQ MQTT-SSL Acceptor - our current SSL Version is not supported due to a found vulnerability
 - Templating von Konfigurationen
     - e.g. Dashboard & Datasource Grafana umstellen auf AWS Instanzen
-- Hogajama (JBoss Applikation)
+    - Operator Group !!
 - Grafana umstellen auf Operator
     - aktuell haben wir die Subscription und die CRD für den Operator erstellt, aber noch nicht mit unseren configs und datasources verknüpft
+- fluentd fixen. Macht aktuell noch Probleme in der Konfiguration
 - PVCs
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
 - Nexus?
@@ -18,17 +19,3 @@
     - Add/Remove instances
     - Add/Remove periods/schedulers
     - Script for starting instance/disabling scheduler and vice versa
-    
-- Hogajama: 
-    - Script current setup:
-        - Operator
-        - WildFly Server CustomResourceDefinition
-        - Buildconfigs
-            - hogajama binary
-            - hogajama run
-            - s2i-builder-maven #TODO: umbauen auf Dockerhub
-        - Imagestreams
-            - maven
-        - standalone-configmap
-        - Operator und standalone funktionieren noch nicht. Entrypoint nicht executable
-            LÖSUNG UNKLAR

@@ -11,8 +11,6 @@ spec:
       kind: ImageStreamTag
       name: 's2i-builder-maven:latest'
   resources: {}
-  successfulBuildsHistoryLimit: 5
-  failedBuildsHistoryLimit: 5
   strategy:
     type: Docker
     dockerStrategy:

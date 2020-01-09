@@ -14,5 +14,4 @@ spec:
     name: latest
     referencePolicy:
       type: Source
-status:
-  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/mongodb
+

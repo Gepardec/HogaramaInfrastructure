@@ -3,7 +3,7 @@ apiVersion: build.openshift.io/v1
 metadata:
   name: jboss-eap-7-bc
   labels:
-    build: jboss-eap-7-bc
+    build: jboss-eap-7-build
 spec:
   nodeSelector: null
   output:
@@ -16,8 +16,7 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: >-
-          image-registry.openshift-image-registry.svc:5000/jboss-eap71-openshift:1.3
+        name: 'jboss-eap71-openshift:1.3'
   postCommit: {}
   source:
     type: Dockerfile

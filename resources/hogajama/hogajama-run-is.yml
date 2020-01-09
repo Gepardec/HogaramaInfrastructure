@@ -1,7 +1,9 @@
 kind: ImageStream
 apiVersion: image.openshift.io/v1
 metadata:
-  name: hogajama-binary
+  name: hogajama-run
+  labels:
+    build: hogajama-run
 spec:
   lookupPolicy:
     local: false
