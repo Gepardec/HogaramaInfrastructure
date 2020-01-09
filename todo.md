@@ -6,6 +6,8 @@
 - Templating von Konfigurationen
     - e.g. Dashboard & Datasource Grafana umstellen auf AWS Instanzen
 - Hogajama (JBoss Applikation)
+- Grafana umstellen auf Operator
+    - aktuell haben wir die Subscription und die CRD für den Operator erstellt, aber noch nicht mit unseren configs und datasources verknüpft
 - PVCs
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
 - Nexus?
