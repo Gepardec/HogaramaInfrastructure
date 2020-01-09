@@ -16,6 +16,8 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/grafana/deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/grafana/service.yml"
   oc_create_resource "admin" ${namespace} "resources/grafana/route.yml"
+#  oc_create_resource "admin" ${namespace} "resources/grafana/grafana-subscription.yml"
+#  oc_create_resource "admin" ${namespace} "resources/grafana/crd.yml"
 }
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
