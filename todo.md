@@ -19,3 +19,12 @@
     - Add/Remove instances
     - Add/Remove periods/schedulers
     - Script for starting instance/disabling scheduler and vice versa
+
+- Script deletion of all namespaces containing an operator: 
+    1. delete custom resources provided by operator
+    2. delete operator suscription
+    3. delete all secrets
+    4. delete all --all -n ${namespace}
+    5. delete project ${namespace}
+    
+    6. in case something goes wrong rejoice and hail noam manos on stackoverflow and upvote https://stackoverflow.com/questions/58638297/project-deletion-struck-in-terminating
