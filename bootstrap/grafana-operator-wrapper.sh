@@ -5,7 +5,7 @@ ABOVE_SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && cd .. &
 
 docker run --rm -it \
   -v ${ABOVE_SCRIPT_DIR}:/home/hogaramaInfra \
-  quay.io/openshift/origin-cli:latest /home/hogaramaInfra/bootstrap/hogarama-commons.sh \
+  quay.io/openshift/origin-cli:latest /home/hogaramaInfra/bootstrap/grafana-operator.sh \
     --oc-admin-token "$(oc whoami -t)" \
     --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
     --namespace grafana-operator-test \
