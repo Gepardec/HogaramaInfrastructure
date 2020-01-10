@@ -2,7 +2,7 @@ apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDashboard
 metadata:
   labels:
-    app: grafana
+    app: hogarama
   name: grafana-dashboard
 spec:
   json: |
@@ -646,4 +646,4 @@ spec:
       "uid": "Fz9wQ59ik",
       "version": 13
     }
-  name: grafana.json
+  name: hogarama.json

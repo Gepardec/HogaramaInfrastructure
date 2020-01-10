@@ -23,6 +23,7 @@ spec:
           values:
             - grafana-dashboard
             - grafana
+            - hogarama
   compat:
     fixAnnotations: true   # Allows importing dashboards that specify annotation tags as arrays instead of strings.
     fixHeights: true
