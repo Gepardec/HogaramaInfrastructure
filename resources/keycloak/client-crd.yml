@@ -1,0 +1,15 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakClient
+metadata:
+  name: client-secret
+  labels:
+    app: sso
+spec:
+  realmSelector:
+    matchLabels:
+      app: sso
+  client:
+    clientId: 987100582349-jeg9d0jkbmi3aoiumfnmsrsa9jcs86f4.apps.googleusercontent.com
+    secret: 4jPV5SoIkhxxlZR0s_NFaM8L
+    clientAuthenticatorType: client-secret
+    protocol: openid-connect
