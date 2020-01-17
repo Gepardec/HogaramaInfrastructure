@@ -1,0 +1,18 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakClient
+metadata:
+  name: client-secret-hogarama
+  labels:
+    app: sso
+spec:
+  client:
+    clientAuthenticatorType: client-secret
+    id: "hogarama"
+    clientId: "hogarama"
+    protocol: "openid-connect"
+    baseUrl: "/auth/realms/gepardec/hogarama"
+    secret: "12360720-0484-40da-9459-34ce53121677"
+    identityProvider: google
+  realmSelector:
+    matchLabels:
+      app: sso
