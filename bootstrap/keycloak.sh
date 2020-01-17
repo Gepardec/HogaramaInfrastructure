@@ -10,12 +10,12 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-#  oc_create_resource "admin" ${namespace} "resources/keycloak/operator-group.yml"
-#  oc_create_resource "admin" ${namespace} "resources/keycloak/subscription.yml"
-#  oc_create_resource "admin" ${namespace} "resources/keycloak/keycloak-crd.yml"
+  oc_create_resource "admin" ${namespace} "resources/keycloak/operator-group.yml"
+  oc_create_resource "admin" ${namespace} "resources/keycloak/subscription.yml"
+  oc_create_resource "admin" ${namespace} "resources/keycloak/keycloak-crd.yml"
   oc_create_resource "admin" ${namespace} "resources/keycloak/realm-gepardec-crd.yml"
-#  oc_create_resource "admin" ${namespace} "resources/keycloak/backup-crd.yml"
-#  oc_create_resource "admin" ${namespace} "resources/keycloak/client-hogarama-crd.yml"
+  oc_create_resource "admin" ${namespace} "resources/keycloak/backup-crd.yml"
+  oc_create_resource "admin" ${namespace} "resources/keycloak/client-hogarama-crd.yml"
 
 }
 readonly -f oc_setup

@@ -13,20 +13,19 @@ spec:
     identityProviders: [
       {
         "providerId": "google",
-        "providerAlias": "google",
         "displayName": "Google",
         "enabled": true,
         "webOrigins": "*",
         "redirectUris" : "*",
+        "alias": "google",
+        "BrowserRedirectorIdentityProvider": "google",
         "config": {
+          "alias": "google",
           "clientId": "987100582349-jeg9d0jkbmi3aoiumfnmsrsa9jcs86f4.apps.googleusercontent.com",
           "clientSecret": "4jPV5SoIkhxxlZR0s_NFaM8L",
-          "providerAlias": "google",
-          "provider_alias": "google"
         }
       }
       ]
-    # provider_alias in db wird noch nicht gesetzt. deswegen NPE und nicht funktionsfähig. vermutlich/hoffentlich letztes keycloak issue vorerst
   instanceSelector:
     matchLabels:
       app: sso
