@@ -4,4 +4,4 @@ metadata:
   name: keycloak-operator-group
 spec:
   targetNamespaces:
-    - keycloak
+    - gepardec

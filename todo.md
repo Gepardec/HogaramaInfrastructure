@@ -6,8 +6,6 @@
 - Templating von Konfigurationen
     - e.g. Dashboard & Datasource Grafana umstellen auf AWS Instanzen
     - Operator Group !!
-- Grafana umstellen auf Operator
-    - aktuell haben wir die Subscription und die CRD für den Operator erstellt, aber noch nicht mit unseren configs und datasources verknüpft
 - fluentd fixen. Macht aktuell noch Probleme in der Konfiguration
 - PVCs
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
