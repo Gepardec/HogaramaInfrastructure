@@ -8,3 +8,4 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   version: 1.0.0
+  startingCVS: eap-operator.1.0.0
