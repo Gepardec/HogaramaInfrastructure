@@ -5,7 +5,8 @@
 - AMQ MQTT-SSL Acceptor - our current SSL Version is not supported due to a found vulnerability
 - Templating von Konfigurationen
     - e.g. Dashboard & Datasource Grafana umstellen auf AWS Instanzen
-    - Operator Group !!
+    - Operator Group !!!!
+    - eap-crd: registry namespace  
 - fluentd fixen. Macht aktuell noch Probleme in der Konfiguration
 - PVCs
 - Force Flag durchpipen zu allen Wrappern von bootstrap-wrapper.sh
