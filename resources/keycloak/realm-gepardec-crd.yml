@@ -22,7 +22,7 @@ spec:
         "config": {
           "alias": "google",
           "clientId": "987100582349-jeg9d0jkbmi3aoiumfnmsrsa9jcs86f4.apps.googleusercontent.com",
-          "clientSecret": "4jPV5SoIkhxxlZR0s_NFaM8L",
+          "clientSecret": "4jPV5SoIkhxxlZR0s_NFaM8L"
         }
       }
       ]
