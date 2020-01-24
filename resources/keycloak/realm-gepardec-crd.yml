@@ -21,8 +21,7 @@ spec:
         "BrowserRedirectorIdentityProvider": "google",
         "config": {
           "alias": "google",
-          "clientId": "983491263416-dnca73qs23bi02m5hs72pb0s8cege9ne.apps.googleusercontent.com",
-          "clientSecret": "vSrnfW9Q4TJNlP2ia1HLW7zs"
+# TODO Template and add new clientid and secet
         }
       }
       ]
