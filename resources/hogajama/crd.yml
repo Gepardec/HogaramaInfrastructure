@@ -10,6 +10,7 @@ spec:
       value: 'https://keycloak-gepardec.apps.p.aws.ocp.gepardec.com/auth/'
   replicas: 1
   serviceAccountName: hogajama-anyuid
+  disableHTTPRoute: true
   standaloneConfigMap:
     key: standalone-openshift.xml
     name: hogajama-standalone

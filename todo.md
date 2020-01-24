@@ -3,6 +3,7 @@
 - AMQ Online über Operator
     - resolve differences in AMQ configuration between itandtel/AWS
 - AMQ MQTT-SSL Acceptor - our current SSL Version is not supported due to a found vulnerability
+- IMPORTANTE: revoke gepardec client secret & key. keycloak realm parametrisiert mit diesen anlegen. nicht in github speichern
 - Templating von Konfigurationen
     - e.g. Dashboard & Datasource Grafana umstellen auf AWS Instanzen
     - Operator Group !!!!
