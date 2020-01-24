@@ -3,7 +3,7 @@ kind: WildFlyServer
 metadata:
   name: hogajama
 spec:
-  applicationImage: 'image-registry.openshift-image-registry.svc:5000/hogarama/hogajama-run'
+  applicationImage: 'image-registry.openshift-image-registry.svc:5000/hogarama/hogajama-run:latest'
   #TODO: scheinbar kommt der eap operator nur mit der vollständigen Registry klar. Frage: wie gehen wir damit um, falls wir ihn in einem anderen Namespace verwenden wollen?
   env:
     - name: KEYCLOAK_AUTH_SERVER_URL

@@ -22,12 +22,10 @@ spec:
         env:
         - name: TZ
           value: Europe/Vienna
-        - name: KEYCLOAK_AUTH_SERVER_URL
-          value: https://secure-sso-57-hogarama.cloud.itandtel.at/auth/
         envFrom:
         - secretRef:
             name: amq-credentials
-        image: registry.access.redhat.com/amq-broker-7/amq-broker-72-openshift:latest
+        image: 'amq-broker-72-openshift:latest'
         imagePullPolicy: Always
         name: amq
         ports:
@@ -62,8 +60,6 @@ spec:
         projected:
           defaultMode: 360
           sources:
-          - secret:
-              name: amq-secrets
           - configMap:
               name: amq-configs
   test: false
@@ -75,5 +71,5 @@ spec:
       - amq
       from:
         kind: ImageStreamTag
-        name: amq:latest
+        name: 'amq-broker-72-openshift:latest'
     type: ImageChange
