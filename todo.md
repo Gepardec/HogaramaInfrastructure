@@ -28,3 +28,7 @@
     5. delete project ${namespace}
     
     6. in case something goes wrong rejoice and hail noam manos on stackoverflow and upvote https://stackoverflow.com/questions/58638297/project-deletion-struck-in-terminating
+    
+- Keycloak: 
+    1. realm = hogarama nennen, ansonsten spießt es sich mit der keycloak json im war file (Rückwärtskompatibilität mit itandtel)
+    2. group anlegen, default group für neue user 

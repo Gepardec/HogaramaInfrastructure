@@ -6,10 +6,10 @@ metadata:
     app: sso
 spec:
   realm:
-    id: gepardec
-    realm: gepardec
+    id: hogarama
+    realm: hogarama
     enabled: true
-    displayName: gepardec
+    displayName: hogarama
     identityProviders: [
       {
         "providerId": "google",
@@ -21,8 +21,8 @@ spec:
         "BrowserRedirectorIdentityProvider": "google",
         "config": {
           "alias": "google",
-          "clientId": "987100582349-jeg9d0jkbmi3aoiumfnmsrsa9jcs86f4.apps.googleusercontent.com",
-          "clientSecret": "4jPV5SoIkhxxlZR0s_NFaM8L",
+          "clientId": "983491263416-dnca73qs23bi02m5hs72pb0s8cege9ne.apps.googleusercontent.com",
+          "clientSecret": "vSrnfW9Q4TJNlP2ia1HLW7zs"
         }
       }
       ]
