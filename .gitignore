@@ -51,3 +51,4 @@ target/
 #oc config
 .aws
 .itandtel
+hogarama_secrets.txt
