@@ -13,9 +13,9 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/operator-group.yml"
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/anyuid-builder-serviceaccount.yml"
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/hogajama-anyuid.yml"
-  oc --config=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
-  oc --config=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
-  oc --config=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid
+  oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
+  oc --kubeconfig=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
+  oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid
 }
 
 main $@

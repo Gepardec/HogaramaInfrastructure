@@ -62,16 +62,16 @@ main () {
       return 1
   fi
 
-  oc --config=/home/.admin login --token=${oc_admin_token} --insecure-skip-tls-verify=true ${oc_cluster} > /dev/null
+  oc --kubeconfig=/home/.admin login --token=${oc_admin_token} --insecure-skip-tls-verify=true ${oc_cluster} > /dev/null
 
-  if ! oc --config=/home/.admin get projects -o name | grep -E "${namespace}\$" > /dev/null; then
+  if ! oc --kubeconfig=/home/.admin get projects -o name | grep -E "${namespace}\$" > /dev/null; then
     if ${FLAG_FORCE}; then
-      execute "oc --config=/home/.admin new-project ${namespace} > /dev/null"
+      execute "oc --kubeconfig=/home/.admin new-project ${namespace} > /dev/null"
     else
       echo "it seems the project \"${namespace}\" does not exist. Do you want to create it?"
       read -p "Are you sure? [y/N]: " -r
       if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-          execute "oc --config=/home/.admin new-project ${namespace} > /dev/null"
+          execute "oc --kubeconfig=/home/.admin new-project ${namespace} > /dev/null"
       else
         echo "project not created. Exiting"
         exit 0

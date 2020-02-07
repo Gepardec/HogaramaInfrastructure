@@ -10,8 +10,8 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  oc delete --config=/home/.admin secret mongodb-credentials -n ${namespace};
-  oc create --config=/home/.admin secret generic mongodb-credentials -n ${namespace} \
+  oc delete --kubeconfig=/home/.admin secret mongodb-credentials -n ${namespace};
+  oc create --kubeconfig=/home/.admin secret generic mongodb-credentials -n ${namespace} \
     --from-literal=MONGODB_USER="hogajama" \
     --from-literal=MONGODB_PASSWORD="hogajama@mongodb" \
     --from-literal=MONGODB_DATABASE="hogajamadb" \

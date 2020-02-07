@@ -19,8 +19,8 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/hogajama/hogajama-run-is.yml"
   oc_create_resource "admin" ${namespace} "resources/hogajama/hogajama-run-bc.yml"
 
-  oc delete --config=/home/.admin cm hogajama-standalone -n ${namespace}
-  oc create --config=/home/.admin cm hogajama-standalone -n ${namespace} \
+  oc delete --kubeconfig=/home/.admin cm hogajama-standalone -n ${namespace}
+  oc create --kubeconfig=/home/.admin cm hogajama-standalone -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/configs/hogajama/standalone-openshift.xml
 
   oc_create_resource "admin" ${namespace} "resources/hogajama/eap-subscription.yml"

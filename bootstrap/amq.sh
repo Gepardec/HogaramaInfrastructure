@@ -10,17 +10,17 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-   oc delete --config=/home/.admin cm amq-configs -n ${namespace};
-   oc create --config=/home/.admin cm amq-configs -n ${namespace} \
+   oc delete --kubeconfig=/home/.admin cm amq-configs -n ${namespace};
+   oc create --kubeconfig=/home/.admin cm amq-configs -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/configs/amq/broker.xml \
     --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
 
-  oc delete --config=/home/.admin secret amq-secrets -n ${namespace};
-  oc create --config=/home/.admin secret generic amq-secrets -n ${namespace} \
+  oc delete --kubeconfig=/home/.admin secret amq-secrets -n ${namespace};
+  oc create ---kubeconfig=/home/.admin secret generic amq-secrets -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/amq/secret.yml
 
-  oc delete --config=/home/.admin secret amq-credentials -n ${namespace};
-  oc create --config=home/.admin secret generic amq-credentials -n ${namespace} \
+  oc delete --kubeconfig=/home/.admin secret amq-credentials -n ${namespace};
+  oc create --kubeconfig=home/.admin secret generic amq-credentials -n ${namespace} \
     --from-literal=AMQ_USER="amq" \
     --from-literal=AMQ_PASSWORD="amq@123"
 

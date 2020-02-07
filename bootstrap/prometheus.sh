@@ -12,8 +12,8 @@ oc_setup() {
 
   oc_create_resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
 
-  oc delete --config=/home/.admin secret prometheus-scrape-config -n ${namespace};
-  oc create --config=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
+  oc delete --kubeconfig=/home/.admin secret prometheus-scrape-config -n ${namespace};
+  oc create --kubeconfig=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
   
   oc_create_resource "admin" ${namespace} "resources/prometheus/crd.yml"
   oc_create_resource "admin" ${namespace} "resources/prometheus/route.yml"
