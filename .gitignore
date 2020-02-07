@@ -52,3 +52,4 @@ target/
 .aws
 .itandtel
 hogarama_secrets.txt
+hogarama_secrets.sh

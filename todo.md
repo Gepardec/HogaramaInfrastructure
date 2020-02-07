@@ -26,5 +26,4 @@
 - Jenkins?
 - Configure GitHub webhook for hogajama-binary build
 - AMQ Online über Operator
-    - resolve differences in AMQ configuration between itandtel/AWS
-- AMQ MQTT-SSL Acceptor - our current SSL Version is not supported due to a found vulnerability
+    - resolve differences in AMQ configuration between itandtel/A- AMQ MQTT-SSL Acceptor - our current SSL Version is not supported due to a found vulnerability
