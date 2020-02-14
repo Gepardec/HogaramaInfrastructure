@@ -16,7 +16,7 @@ oc_setup() {
     --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
 
   oc delete --kubeconfig=/home/.admin secret amq-secrets -n ${namespace};
-  oc create ---kubeconfig=/home/.admin secret generic amq-secrets -n ${namespace} \
+  oc create --kubeconfig=/home/.admin secret generic amq-secrets -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/amq/secret.yml
 
   oc delete --kubeconfig=/home/.admin secret amq-credentials -n ${namespace};
