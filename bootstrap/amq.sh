@@ -17,7 +17,7 @@ oc_setup() {
 
   oc delete --kubeconfig=/home/.admin secret amq-secrets -n ${namespace};
   oc create --kubeconfig=/home/.admin secret generic amq-secrets -n ${namespace} \
-    --from-file=${TOPLEVEL_DIR}/secrets/amq/secret.yml
+    --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.ks
 
   oc delete --kubeconfig=/home/.admin secret amq-credentials -n ${namespace};
   oc create --kubeconfig=home/.admin secret generic amq-credentials -n ${namespace} \

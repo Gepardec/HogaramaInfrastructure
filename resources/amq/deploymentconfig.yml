@@ -22,6 +22,14 @@ spec:
         env:
         - name: TZ
           value: Europe/Vienna
+        - name: AMQ_TRUSTSTORE
+          value: broker.ks
+        - name: AMQ_TRUSTSTORE_PASSWORD
+          value: L(o?cqGPtJ}7YiHu
+        - name: AMQ_KEYSTORE
+          value: broker.ks
+        - name: AMQ_KEYSTORE_PASSWORD
+          value: L(o?cqGPtJ}7YiHu
         envFrom:
         - secretRef:
             name: amq-credentials
@@ -50,6 +58,9 @@ spec:
         - mountPath: /home/jboss/cfg
           name: amq-volume
           readOnly: true
+        - mountPath: /etc/amq-secret-volume/
+          name: amq-secret-volume
+          readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -62,6 +73,12 @@ spec:
           sources:
           - configMap:
               name: amq-configs
+      - name: amq-secret-volume
+        projected:
+          defaultMode: 360
+          sources:
+          - secret:
+              name: amq-secrets
   test: false
   triggers:
   - type: ConfigChange
