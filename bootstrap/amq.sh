@@ -15,8 +15,9 @@ oc_setup() {
     --from-file=${TOPLEVEL_DIR}/configs/amq/broker.xml \
     --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
 
-
-  oc_create_resource "admin" ${namespace} "secrets/amq/secret.yml"
+  oc delete --kubeconfig=/home/.admin secret amq-secret -n ${namespace};
+  oc create --kubeconfig=home/.admin secret generic amq-secret -n ${namespace} \
+    --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.ks
 
   oc delete --kubeconfig=/home/.admin secret amq-credentials -n ${namespace};
   oc create --kubeconfig=home/.admin secret generic amq-credentials -n ${namespace} \
@@ -27,7 +28,7 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/service.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/mqtt-route.yml"
-  oc_create_resource "admin" ${namespace} "resources/amq/management-route.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/console-route.yml"
 }
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?

@@ -25,11 +25,11 @@ spec:
         - name: AMQ_TRUSTSTORE
           value: broker.ks
         - name: AMQ_TRUSTSTORE_PASSWORD
-          value: L(o?cqGPtJ}7YiHu
+          value: 765rjvb5rtzh8i7587fg # L(o?cqGPtJ}7YiHu
         - name: AMQ_KEYSTORE
           value: broker.ks
         - name: AMQ_KEYSTORE_PASSWORD
-          value: L(o?cqGPtJ}7YiHu
+          value: 765rjvb5rtzh8i7587fg # L(o?cqGPtJ}7YiHu
         envFrom:
         - secretRef:
             name: amq-credentials
@@ -78,7 +78,7 @@ spec:
           defaultMode: 360
           sources:
           - secret:
-              name: amq-secrets
+              name: amq-secret
   test: false
   triggers:
   - type: ConfigChange
