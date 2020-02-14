@@ -11,7 +11,7 @@ oc_setup() {
   local oc_cluster=${4}
 
   oc delete --kubeconfig=/home/.admin secret fluentd-secret -n ${namespace};
-  oc create --kubeconfig/home/.admin secret generic fluentd-secret -n ${namespace} \
+  oc create --kubeconfig=/home/.admin secret generic fluentd-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
 
   oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
