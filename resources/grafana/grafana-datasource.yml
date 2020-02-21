@@ -11,6 +11,6 @@ spec:
         timeInterval: 5s
       name: prometheus
       type: prometheus
-      url: 'prometheus-57-hogarama.cloud.itandtel.at'
+      url: 'prometheus-57-hogarama.cloud.itandtel.at' #TODO change to aws atasource as soon as we have configured PvCs
       version: 1
   name: grafana-datasources.yaml

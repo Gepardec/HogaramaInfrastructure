@@ -1,14 +1,14 @@
 # files created from templates containing secret values
-fluentd/fluent.conf
-amq/deploymentconfig.yml
-fluentd/buildconfig.yml
-grafana/configmap.yml
-grafana/crd.yml
-hogajama/hogajama-binary-bc.yml
-hogajama/hogajama-run-bc.yml
-hogajama/s2i-builder-maven-bc.yml
-keycloak/client-hogarama-crd.yml
-keycloak/realm-gepardec-crd.yml
+fluent.conf
+amq-deploymentconfig.yml
+fluentd-buildconfig.yml
+grafana-configmap.yml
+grafana-crd.yml
+hogajama-binary-bc.yml
+hogajama-run-bc.yml
+s2i-builder-maven-bc.yml
+client-hogarama-crd.yml
+realm-gepardec-crd.yml
 
 # Compiled class file
 *.class

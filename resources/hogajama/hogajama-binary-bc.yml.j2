@@ -30,10 +30,10 @@ spec:
   triggers:
     - type: GitHub
       github:
-        secret: Wq63PpZLl2SRdPKX5l-9
+        secret: {{ HOGAJAMA_GITHUB_BINARY_TRIGGER_SECRET  }}
     - type: Generic
       generic:
-        secret: HY6-6pQ-JxdDsvKVUb9p
+        secret: {{ HOGAJAMA_GENERIC_BINARY_TRIGGER_SECRET  }}
     - type: ConfigChange
     - type: ImageChange
   runPolicy: Serial

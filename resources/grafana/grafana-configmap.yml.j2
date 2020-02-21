@@ -403,12 +403,12 @@ data:
     # default admin password, can be changed before first start of grafana, or
     in profile settings
 
-    admin_password = admin
+    admin_password = {{ GRAFANA_INITIAL_ADMIN_PASSWORD }}
 
 
     # used for signing
 
-    secret_key = SW2YcwTIb9zpOOhoPsMm
+    secret_key = {{ GRAFANA_SECRET_KEY }}
 
 
     # disable gravatar profile images

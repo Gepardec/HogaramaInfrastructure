@@ -16,8 +16,8 @@ oc_setup() {
 
   oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
   #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
-  oc_create_from_template "admin" ${namespace} "resources/fluentd/buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
-  oc_create_resource "admin" ${namespace} "resources/fluentd/deploymentconfig.yml"
+  oc_create_from_template "admin" ${namespace} "resources/fluentd/fluentd-buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
+  oc_create_resource "admin" ${namespace} "resources/fluentd/fluentd-deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/fluentd/service.yml"
 }
 readonly -f oc_setup

@@ -40,10 +40,10 @@ objects:
         type: Docker
       triggers:
         - github:
-            secret: 4m9EY9lErQRrs8LJjudP
+            secret: {{ GITHUB_FLUENTD_TRIGGER_SECRET }}
           type: GitHub
         - generic:
-            secret: A2YAGDWxu2zgCfjIyo25
+            secret: {{ GENERIC_FLUENTD_TRIGGER_SECRET }}
           type: Generic
         - imageChangeParams:
             automatic: true

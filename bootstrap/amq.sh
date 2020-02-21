@@ -25,7 +25,7 @@ oc_setup() {
     --from-literal=AMQ_PASSWORD="amq@123"
 
   oc_create_from_template "admin" ${namespace} "resources/amq/imagestream.yml"
-  oc_create_resource "admin" ${namespace} "resources/amq/deploymentconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/amq/amq-deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/service.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/mqtt-route.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/console-route.yml"

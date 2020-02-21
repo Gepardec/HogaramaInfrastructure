@@ -43,10 +43,10 @@ spec:
   triggers:
     - type: GitHub
       github:
-        secret: qvj2Z1axSokmTqNnP0Id
+        secret: {{ HOGAJAMA_GITHUB_RUN_TRIGGER_SECRET }}
     - type: Generic
       generic:
-        secret: FKlVTHcUQfOVcfFkkE-s
+        secret: {{ HOGAJAMA_GENERIC_RUN_TRIGGER_SECRET }}
     - type: ImageChange
       imageChange:
         from:

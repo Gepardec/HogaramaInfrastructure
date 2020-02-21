@@ -25,11 +25,11 @@ spec:
         - name: AMQ_TRUSTSTORE
           value: broker.ks
         - name: AMQ_TRUSTSTORE_PASSWORD
-          value: 765rjvb5rtzh8i7587fg # L(o?cqGPtJ}7YiHu
+          value: {{ AMQ_TRUSTSTORE_PASSWORD }}
         - name: AMQ_KEYSTORE
           value: broker.ks
         - name: AMQ_KEYSTORE_PASSWORD
-          value: 765rjvb5rtzh8i7587fg # L(o?cqGPtJ}7YiHu
+          value: {{ AMQ_KEYSTORE_PASSWORD }}
         envFrom:
         - secretRef:
             name: amq-credentials

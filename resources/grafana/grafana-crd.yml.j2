@@ -14,7 +14,7 @@ spec:
       level: warn
       mode: console
     security:
-      admin_password: admin@123!
+      admin_password: {{ GRAFANA_OPERATOR_ADMIN_PASSWORD }}
       admin_user: admin
   dashboardLabelSelector:
     - matchExpressions:

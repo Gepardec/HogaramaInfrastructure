@@ -2,6 +2,7 @@
 
 readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
 
+${SCRIPT_DIR}/templating/template.sh
 #TODO: pass force flag through to scripts.
 ${SCRIPT_DIR}/commons-wrapper.sh
 ${SCRIPT_DIR}/hogarama-commons-wrapper.sh

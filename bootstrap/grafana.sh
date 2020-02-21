@@ -10,10 +10,10 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  oc_create_resource "admin" ${namespace} "resources/grafana/configmap.yml"
+  oc_create_resource "admin" ${namespace} "resources/grafana/grafana-configmap.yml"
   oc_create_resource "admin" ${namespace} "resources/grafana/imagestream.yml"
   #oc_create_resource "admin" ${namespace} "resources/grafana/pvc.yml"
-  oc_create_resource "admin" ${namespace} "resources/grafana/deploymentconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/grafana/grafana-deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/grafana/service.yml"
   oc_create_resource "admin" ${namespace} "resources/grafana/route.yml"
 #  oc_create_resource "admin" ${namespace} "resources/grafana/grafana-subscription.yml"

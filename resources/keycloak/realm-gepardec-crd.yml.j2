@@ -21,7 +21,8 @@ spec:
         "BrowserRedirectorIdentityProvider": "google",
         "config": {
           "alias": "google",
-# TODO Template and add new clientid and secet
+          "clientId": "{{ KEYCLOAK_GOOGLE_CLIENT_ID }}",
+          "clientSecret": "{{ KEYCLOAK_GOOGLE_CLIENT_SECRET }}"
         }
       }
       ]
