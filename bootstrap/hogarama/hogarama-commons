@@ -1,7 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -13,9 +28,11 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/operator-group.yml"
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/anyuid-builder-serviceaccount.yml"
   oc_create_resource "admin" ${namespace} "resources/hogarama-commons/hogajama-anyuid.yml"
+  execute """
   oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
   oc --kubeconfig=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
   oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid
+  """
 }
 
-main $@
+hogarama_main $@

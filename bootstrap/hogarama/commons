@@ -1,7 +1,22 @@
-#!/bin/sh
-    
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#!/bin/bash
+
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -20,4 +35,4 @@ oc_setup() {
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
 
-main $@
+hogarama_main $@

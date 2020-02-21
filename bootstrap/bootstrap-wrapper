@@ -1,0 +1,84 @@
+#!/bin/bash
+
+####################### 
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/.. > /dev/null && pwd )
+
+#################### 
+# GLOBAL VARIABLES #
+####################
+
+FLAG_DRYRUN=false
+
+########## 
+# SOURCE #
+##########
+
+for functionFile in ${SCRIPT_DIR}/functions/*.active;
+  do source ${functionFile}
+done
+
+##########
+# SCRIPT #
+##########
+
+usage_message () {
+  echo """Usage:
+    $PROGNAME [OPT ..]
+      -f | --force)    ... force deletes resources if they exist
+
+      -d | --dryrun)   ... dryrun
+      
+      -h | --help)     ... help"""
+}
+readonly -f usage_message
+[ "$?" -eq "0" ] || return $?
+
+main () {
+  # INITIAL VALUES
+  local resources=()
+  local options=""
+
+  # GETOPT
+  OPTS=`getopt -o dhf --long dryrun,help,force -- "$@"`
+  if [ $? != 0 ]; then
+    echo "failed to fetch options via getopt"
+    exit $EXIT_FAILURE
+  fi
+  eval set -- "$OPTS"
+  while true ; do
+    case "$1" in
+      -f | --force) 
+        options="${options} --force";
+        shift;
+        ;; 
+      -d | --dryrun) 
+        options="${options} --dryrun";
+        shift;
+        ;; 
+      -h | --help) 
+        usage_message; 
+        exit 0;
+        ;;
+      *) 
+        break
+        ;;
+    esac
+  done
+
+  ####
+  # CHECK INPUT
+  # check if all required options are given
+ 
+  ####
+  # CORE LOGIC
+  for resource in $(/bin/ls bootstrap/hogarama); do
+    execute "${SCRIPT_DIR}/bootstrap --resource ${resource} ${options}"
+  done
+}
+ 
+main $@

@@ -1,7 +1,22 @@
-#!/bin/sh
-    
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#!/bin/bash
+
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -10,20 +25,26 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
+  execute """
    oc delete --kubeconfig=/home/.admin cm amq-configs -n ${namespace};
    oc create --kubeconfig=/home/.admin cm amq-configs -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/configs/amq/broker.xml \
     --from-file=${TOPLEVEL_DIR}/configs/amq/entrypoint.sh
+  """
 
+  execute """
   oc delete --kubeconfig=/home/.admin secret amq-secret -n ${namespace};
   oc create --kubeconfig=home/.admin secret generic amq-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/amq/broker.ks
-
+  """
+  
+  execute """
   oc delete --kubeconfig=/home/.admin secret amq-credentials -n ${namespace};
   oc create --kubeconfig=home/.admin secret generic amq-credentials -n ${namespace} \
     --from-literal=AMQ_USER="amq" \
     --from-literal=AMQ_PASSWORD="amq@123"
-
+  """
+  
   oc_create_from_template "admin" ${namespace} "resources/amq/imagestream.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/amq-deploymentconfig.yml"
   oc_create_resource "admin" ${namespace} "resources/amq/service.yml"
@@ -33,4 +54,4 @@ oc_setup() {
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
 
-main $@
+hogarama_main $@

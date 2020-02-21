@@ -1,7 +1,22 @@
-#!/bin/sh
-    
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#!/bin/bash
+
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -10,10 +25,12 @@ oc_setup() {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
+  execute """
   oc delete --kubeconfig=/home/.admin secret fluentd-secret -n ${namespace};
   oc create --kubeconfig=/home/.admin secret generic fluentd-secret -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
-
+  """
+  
   oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
   #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
   oc_create_from_template "admin" ${namespace} "resources/fluentd/fluentd-buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
@@ -23,4 +40,4 @@ oc_setup() {
 readonly -f oc_setup
 [ "$?" -eq "0" ] || return $?
 
-main $@
+hogarama_main $@

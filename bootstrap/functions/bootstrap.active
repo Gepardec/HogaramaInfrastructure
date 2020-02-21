@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# bootstrap
+function bootstrap () {
+  local script="${1}"
+  local options="${2}"
+  local command="\
+    docker run --rm -it \
+        -v ${TOPLEVEL_DIR}:/home/hogaramaInfra \
+        quay.io/openshift/origin-cli:latest \
+        /home/hogaramaInfra/bootstrap/hogarama/${script} ${options}"
+  execute "${command}" "${command}" false
+}
+readonly -f bootstrap
+[ "$?" -eq "0" ] || return $?

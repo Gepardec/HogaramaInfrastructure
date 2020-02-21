@@ -1,6 +1,39 @@
 #!/bin/bash
 
-main () {
+####################
+# GLOBAL VARIABLES #
+####################
+
+FLAG_DRYRUN=false
+FLAG_FORCE=false
+
+##########
+# SCRIPT #
+##########
+ 
+hogarama_usage_message () {
+  echo """Usage:
+    $PROGNAME [OPT ..]
+    required
+      --namespace)                   ... openshift project or kubernetes namespace
+      --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
+      --oc-cluster)                  ... e.g. https://api.crc.testing:6443
+      --git-branch)                  ... specify the git branch for oc resource references
+
+    optional
+      --dryrun)                      ... only print commands that would be executed
+      -f | --force)                  ... recreate without prompt
+
+    general
+      -h | --help)                   ... print this help text
+    """
+}
+# readonly definition of a function throws an error if another function
+# with the same name is defined a second time
+readonly -f hogarama_usage_message
+[ "$?" -eq "0" ] || return $?
+
+hogarama_main () {
   # initial values
   local git_branch=""
   local namespace=""
@@ -36,7 +69,7 @@ main () {
           shift 2
           ;;
       -h | --help)
-          usage_message
+          hogarama_usage_message
           exit 0
           ;;
       -f | --force)
@@ -58,7 +91,7 @@ main () {
       echo
       (>&2 echo "please provide all required options")
       echo
-      usage_message
+      hogarama_usage_message
       return 1
   fi
 
@@ -83,5 +116,5 @@ main () {
 
 }
 
-readonly -f main
+readonly -f hogarama_main
 [ "$?" -eq "0" ] || return $?

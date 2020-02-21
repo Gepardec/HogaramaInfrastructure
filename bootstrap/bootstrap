@@ -1,0 +1,95 @@
+#!/bin/bash
+
+####################### 
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/.. > /dev/null && pwd )
+
+#################### 
+# GLOBAL VARIABLES #
+####################
+
+FLAG_DRYRUN=false
+
+########## 
+# SOURCE #
+##########
+
+for functionFile in ${SCRIPT_DIR}/functions/*.active;
+  do source ${functionFile}
+done
+
+##########
+# SCRIPT #
+##########
+
+usage_message () {
+  echo """Usage:
+    $PROGNAME [OPT ..]
+      -r | --resource) ... multiple definitions possible
+      -f | --force)    ... force deletes resources if they exist
+
+      -d | --dryrun)   ... dryrun
+      
+      -h | --help)     ... help"""
+}
+readonly -f usage_message
+[ "$?" -eq "0" ] || return $?
+
+main () {
+  # INITIAL VALUES
+  local resources=()
+  local options=""
+
+  # GETOPT
+  OPTS=`getopt -o dhfr: --long dryrun,help,force,resource: -- "$@"`
+  if [ $? != 0 ]; then
+    echo "failed to fetch options via getopt"
+    exit $EXIT_FAILURE
+  fi
+  eval set -- "$OPTS"
+  while true ; do
+    case "$1" in
+      -r | --resource)
+        resources+=( "${2}" )
+        shift 2;
+        ;;
+      -f | --force) 
+        options="${options} --force";
+        shift;
+        ;; 
+      -d | --dryrun) 
+        options="${options} --dryrun";
+        shift;
+        ;; 
+      -h | --help) 
+        usage_message; 
+        exit 0;
+        ;;
+      *) 
+        break
+        ;;
+    esac
+  done
+
+  ####
+  # CHECK INPUT
+  # check if all required options are given
+  
+  ####
+  # CORE LOGIC
+  options="${options} \
+            --oc-admin-token "$(oc whoami -t)" \
+            --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
+            --namespace hogarama \
+            --git-branch $(git branch | grep \* | cut -d ' ' -f2)"
+  
+  for resource in ${resources[@]}; do
+    bootstrap "${resource}" "${options}"
+  done
+}
+ 
+main $@

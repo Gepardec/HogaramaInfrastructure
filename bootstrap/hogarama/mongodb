@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
+
+oc_setup() {
+   # initial values
+  local git_branch=${1}
+  local namespace=${2}
+  local oc_admin_token=${3}
+  local oc_cluster=${4}
+
+  execute """
+  oc delete --kubeconfig=/home/.admin secret mongodb-credentials -n ${namespace};
+  oc create --kubeconfig=/home/.admin secret generic mongodb-credentials -n ${namespace} \
+    --from-literal=MONGODB_USER='hogajama' \
+    --from-literal=MONGODB_PASSWORD='hogajama@mongodb' \
+    --from-literal=MONGODB_DATABASE='hogajamadb' \
+    --from-literal=MONGODB_ADMIN_PASSWORD='admin@mongodb'
+  """
+
+  oc_create_resource "admin" ${namespace} "resources/mongodb/imagestream.yml"
+  #oc_create_resource "admin" ${namespace} "resources/mongodb/pvc.yml"
+  oc_create_resource "admin" ${namespace} "resources/mongodb/deploymentconfig.yml"
+  oc_create_resource "admin" ${namespace} "resources/mongodb/service.yml"
+}
+
+hogarama_main $@

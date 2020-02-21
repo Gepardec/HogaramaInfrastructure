@@ -1,7 +1,22 @@
 #!/bin/bash
 
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -19,13 +34,15 @@ oc_setup() {
   oc_create_resource "admin" ${namespace} "resources/hogajama/hogajama-run-is.yml"
   oc_create_resource "admin" ${namespace} "resources/hogajama/hogajama-run-bc.yml"
 
+  execute """
   oc delete --kubeconfig=/home/.admin cm hogajama-standalone -n ${namespace}
   oc create --kubeconfig=/home/.admin cm hogajama-standalone -n ${namespace} \
     --from-file=${TOPLEVEL_DIR}/configs/hogajama/standalone-openshift.xml
-
+  """
+  
   oc_create_resource "admin" ${namespace} "resources/hogajama/eap-subscription.yml"
   oc_create_resource "admin" ${namespace} "resources/hogajama/crd.yml"
 
 }
 
-main $@
+hogarama_main $@

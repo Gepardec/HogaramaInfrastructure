@@ -1,7 +1,22 @@
 #!/bin/bash
 
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )
-for functionFile in ${SCRIPT_DIR}/functions/*.sh;do source ${functionFile}; done
+#######################
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
+##########
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
+
+############
+# oc_setup #
+############
 
 oc_setup() {
    # initial values
@@ -12,11 +27,13 @@ oc_setup() {
 
   oc_create_resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
 
+  execute """
   oc delete --kubeconfig=/home/.admin secret prometheus-scrape-config -n ${namespace};
   oc create --kubeconfig=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
+  """
   
   oc_create_resource "admin" ${namespace} "resources/prometheus/crd.yml"
   oc_create_resource "admin" ${namespace} "resources/prometheus/route.yml"
 }
 
-main $@
+hogarama_main $@
