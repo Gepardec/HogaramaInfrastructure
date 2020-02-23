@@ -9,14 +9,14 @@ function j2-template () {
     if [[ -f ${target_file_name} && ${FLAG_FORCE} == false ]]; then
       info "${target_file_name#/mnt/} already exists - if you want to overwrite it use the --force flag"
     else
-      execute """\
+      execute "\
         j2 \
           --format=yaml \
           --filters /opt/jinja/filters/base64.py \
           -o ${target_file_name} \
           ${item} \
-          ${resource_dir}/secrets/secrets.yml && 
-        echo ${target_file_name#/mnt/} created"""
+          ${resource_dir}/secrets/secrets.yml"
+      info "${target_file_name#/mnt/} created"
     fi
   done;
 }
