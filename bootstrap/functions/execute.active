@@ -9,12 +9,12 @@
 function execute () {
   local exec_command=$1
   local alt_text=${2:-${1}}
-  local flag_dryrun=${3:-$FLAG_DRYRUN}
-  local flag_quiet=${3:-$FLAG_QUIET}
+  local flag_dryrun=${3:-${FLAG_DRYRUN}}
+  local flag_quiet=${4:-${FLAG_QUIET}}
 
   if [[ "${flag_dryrun}" == false ]]; then
     if [[ "${flag_quiet}" == false ]]; then
-      echo "# ${alt_text}" | awk '{$1=$1;print}'
+      echo "${alt_text}" | awk '{$1=$1;print}' | sed 's/^/# /'
     fi
     eval "${exec_command}"
   else
