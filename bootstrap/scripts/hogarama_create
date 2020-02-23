@@ -1,5 +1,13 @@
 #!/bin/bash
 
+####################### 
+# READ ONLY VARIABLES #
+#######################
+
+readonly PROGNAME=`basename "$0"`
+readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
+
 ####################
 # GLOBAL VARIABLES #
 ####################
@@ -7,14 +15,23 @@
 FLAG_DRYRUN=false
 FLAG_FORCE=false
 
+########## 
+# SOURCE #
+##########
+
+for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;
+  do source ${functionFile}
+done
+
 ##########
 # SCRIPT #
 ##########
  
-hogarama_usage_message () {
+usage_message () {
   echo """Usage:
     $PROGNAME [OPT ..]
     required
+      --resource)                    ... multiple definitions possible
       --namespace)                   ... openshift project or kubernetes namespace
       --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
       --oc-cluster)                  ... e.g. https://api.crc.testing:6443
@@ -30,18 +47,19 @@ hogarama_usage_message () {
 }
 # readonly definition of a function throws an error if another function
 # with the same name is defined a second time
-readonly -f hogarama_usage_message
+readonly -f usage_message
 [ "$?" -eq "0" ] || return $?
 
-hogarama_main () {
+main () {
   # initial values
+  local resources=()
   local git_branch=""
   local namespace=""
   local oc_admin_token=""
   local oc_cluster=""
 
   # getopts
-  local opts=`getopt -o hf --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun -- "$@"`
+  local opts=`getopt -o hfr: --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun,resource: -- "$@"`
   local opts_return=$?
   if [ ${opts_return} != 0 ]; then
       echo
@@ -52,6 +70,10 @@ hogarama_main () {
   eval set -- "$opts"
   while true ; do
       case "$1" in
+      --resource)
+          resources+=(${2})
+          shift 2
+          ;;
       --oc-admin-token)
           oc_admin_token=$2
           shift 2
@@ -69,7 +91,7 @@ hogarama_main () {
           shift 2
           ;;
       -h | --help)
-          hogarama_usage_message
+          usage_message
           exit 0
           ;;
       -f | --force)
@@ -85,15 +107,29 @@ hogarama_main () {
           ;;
       esac
   done
-  # Verify that all required options are set
-  # if [ -z "$VAR" ]; This will return true if a variable is unset or set to the empty string ("").
+
+  ####
+  # CHECK INPUT
+  # check if all required options are given
+  
   if [ -z "${git_branch}" ] || [ -z "${namespace}" ] || [ -z "${oc_admin_token}" ] || [ -z "${oc_cluster}" ]; then
       echo
       (>&2 echo "please provide all required options")
       echo
-      hogarama_usage_message
+      usage_message
       return 1
   fi
+
+  if [ ${#resources[@]} -eq 0 ]; then
+    echo "please provide at least one '--resource RESOURCE' option"
+    echo
+    usage_message
+    echo
+    exit 1
+  fi
+  
+  ####
+  # CORE LOGIC
 
   oc --kubeconfig=/home/.admin login --token=${oc_admin_token} --insecure-skip-tls-verify=true ${oc_cluster} > /dev/null
 
@@ -112,9 +148,12 @@ hogarama_main () {
     fi
   fi
 
-  oc_setup ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
-
+  for resource in ${resources[@]}; do
+    source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
+    ${resource} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
+  done
 }
-
-readonly -f hogarama_main
+readonly -f main
 [ "$?" -eq "0" ] || return $?
+
+main $@

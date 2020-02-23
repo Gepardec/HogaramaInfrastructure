@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function j2-template () {
+  local resource_dir="${1}"
+  local resource="${2}"
+  for item in $(find ${resource_dir} -name "*.j2" | grep "${resource}"); do
+    local target_file_name=${item%.j2}
+    if [[ -f ${target_file_name} && ${FLAG_FORCE} == false ]]; then
+      execute "echo ${target_file_name} already exists"
+      execute "echo if you want to overwrite "${target_file_name}" use the --force flag"
+    else
+      execute """\
+        j2 \
+          --format=yaml \
+          -o ${target_file_name} \
+          ${item} \
+          ${resource_dir}/secrets/secrets.yml && 
+        echo ${target_file_name} created"""
+    fi
+  done;
+}
+readonly -f j2-template
+[ "$?" -eq "0" ] || return $?

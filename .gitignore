@@ -9,6 +9,7 @@ hogajama-run-bc.yml
 s2i-builder-maven-bc.yml
 client-hogarama-crd.yml
 realm-gepardec-crd.yml
+secrets/secrets.yml
 
 # Compiled class file
 *.class

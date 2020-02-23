@@ -1,4 +1,4 @@
-#!/bin/bas
+#!/bin/bash
 
 # execute $COMMAND [$ALT_TEXT] [$FLAG_DRYRUN=false]
 # if command and FLAG_DRYRUN=true are set the command will be execuded

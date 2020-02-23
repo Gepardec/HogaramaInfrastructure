@@ -1,6 +1,6 @@
 #!/bin/bash
 
-oc_create_resource () {
+function oc-create-resource () {
   local token=${1}
   local namespace=${2}
   local file=${3}
@@ -22,5 +22,5 @@ oc_create_resource () {
     fi
   fi
 }
-readonly -f oc_create_resource
+readonly -f oc-create-resource
 [ "$?" -eq "0" ] || return $?

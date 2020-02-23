@@ -1,39 +1,20 @@
 #!/bin/bash
 
-#######################
-# READ ONLY VARIABLES #
-#######################
-
-readonly PROGNAME=`basename "$0"`
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
-
-##########
-# SOURCE #
-##########
-
-for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
-
-############
-# oc_setup #
-############
-
-oc_setup() {
-   # initial values
+prometheus() {
   local git_branch=${1}
   local namespace=${2}
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  oc_create_resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
+  oc-create-resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
 
   execute """
   oc delete --kubeconfig=/home/.admin secret prometheus-scrape-config -n ${namespace};
   oc create --kubeconfig=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
   """
   
-  oc_create_resource "admin" ${namespace} "resources/prometheus/crd.yml"
-  oc_create_resource "admin" ${namespace} "resources/prometheus/route.yml"
+  oc-create-resource "admin" ${namespace} "resources/prometheus/crd.yml"
+  oc-create-resource "admin" ${namespace} "resources/prometheus/route.yml"
 }
-
-hogarama_main $@
+readonly -f prometheus
+[ "$?" -eq "0" ] || return $?

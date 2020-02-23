@@ -1,6 +1,6 @@
 #!/bin/bash
 
-oc_create_from_template () {
+function oc-create-from-template () {
   local token=${1}
   local namespace=${2}
   local file=${3}
@@ -23,5 +23,5 @@ oc_create_from_template () {
     fi
   fi
 }
-readonly -f oc_create_from_template
+readonly -f oc-create-from-template
 [ "$?" -eq "0" ] || return $?

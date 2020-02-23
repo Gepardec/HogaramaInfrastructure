@@ -1,38 +1,17 @@
 #!/bin/bash
 
-#######################
-# READ ONLY VARIABLES #
-#######################
-
-readonly PROGNAME=`basename "$0"`
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
-
-##########
-# SOURCE #
-##########
-
-for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
-
-############
-# oc_setup #
-############
-
-oc_setup() {
-   # initial values
+function commons () {
   local git_branch=${1}
   local namespace=${2}
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
-  oc_create_resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
-  oc_create_resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
-  oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-bc.yml"
-  oc_create_resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-patched-is.yml"
+  oc-create-resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-is.json"
+  oc-create-resource "admin" ${namespace} "resources/commons/openjdk/openjdk-8-is.json"
+  oc-create-resource "admin" ${namespace} "resources/commons/redhat-sso/redhat-sso-7-is.json"
+  oc-create-resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-bc.yml"
+  oc-create-resource "admin" ${namespace} "resources/commons/jboss-eap/jboss-eap-7-patched-is.yml"
 
 }
-readonly -f oc_setup
+readonly -f commons
 [ "$?" -eq "0" ] || return $?
-
-hogarama_main $@

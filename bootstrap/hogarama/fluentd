@@ -1,25 +1,6 @@
 #!/bin/bash
 
-#######################
-# READ ONLY VARIABLES #
-#######################
-
-readonly PROGNAME=`basename "$0"`
-readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
-
-##########
-# SOURCE #
-##########
-
-for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;do source ${functionFile}; done
-
-############
-# oc_setup #
-############
-
-oc_setup() {
-   # initial values
+function fluentd () {
   local git_branch=${1}
   local namespace=${2}
   local oc_admin_token=${3}
@@ -31,13 +12,11 @@ oc_setup() {
     --from-file=${TOPLEVEL_DIR}/secrets/fluentd/fluent.conf
   """
   
-  oc_create_resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
-  #oc_create_resource "admin" ${namespace} "resources/fluentd/pvc.yml"
-  oc_create_from_template "admin" ${namespace} "resources/fluentd/fluentd-buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
-  oc_create_resource "admin" ${namespace} "resources/fluentd/fluentd-deploymentconfig.yml"
-  oc_create_resource "admin" ${namespace} "resources/fluentd/service.yml"
+  oc-create-resource "admin" ${namespace} "resources/fluentd/imagestream.yml"
+  #oc-create-resource "admin" ${namespace} "resources/fluentd/pvc.yml"
+  oc-create-from-template "admin" ${namespace} "resources/fluentd/fluentd-buildconfig.yml" "--param GIT_BRANCH=${git_branch}"
+  oc-create-resource "admin" ${namespace} "resources/fluentd/fluentd-deploymentconfig.yml"
+  oc-create-resource "admin" ${namespace} "resources/fluentd/service.yml"
 }
-readonly -f oc_setup
+readonly -f fluentd
 [ "$?" -eq "0" ] || return $?
-
-hogarama_main $@
