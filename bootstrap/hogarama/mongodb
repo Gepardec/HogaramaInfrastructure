@@ -6,15 +6,7 @@ function mongodb () {
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  execute """
-  oc delete --kubeconfig=/home/.admin secret mongodb-credentials -n ${namespace};
-  oc create --kubeconfig=/home/.admin secret generic mongodb-credentials -n ${namespace} \
-    --from-literal=MONGODB_USER='hogajama' \
-    --from-literal=MONGODB_PASSWORD='hogajama@mongodb' \
-    --from-literal=MONGODB_DATABASE='hogajamadb' \
-    --from-literal=MONGODB_ADMIN_PASSWORD='admin@mongodb'
-  """
-
+  oc-create-resource "admin" ${namespace} "secret/mongodb/mongodb-credentials.yml"
   oc-create-resource "admin" ${namespace} "resources/mongodb/imagestream.yml"
   #oc-create-resource "admin" ${namespace} "resources/mongodb/pvc.yml"
   oc-create-resource "admin" ${namespace} "resources/mongodb/deploymentconfig.yml"

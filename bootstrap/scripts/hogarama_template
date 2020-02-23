@@ -13,6 +13,7 @@ readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
 ####################
 
 FLAG_DRYRUN=false
+FLAG_QUIET=false
 FLAG_FORCE=false
 
 ########## 
@@ -34,6 +35,7 @@ usage_message () {
 
       -f | --force)    ... process template even if target file exists
       -d | --dryrun)   ... dryrun
+      -q | --quiet)    ... quiet
       
       -h | --help)     ... help"""
 }
@@ -46,7 +48,7 @@ main () {
   local options=""
 
   # GETOPT
-  OPTS=`getopt -o dhfr: --long dryrun,help,force,resource: -- "$@"`
+  OPTS=`getopt -o dhfr:q --long dryrun,help,force,resource:,quiet -- "$@"`
   if [ $? != 0 ]; then
     echo "failed to fetch options via getopt"
     exit $EXIT_FAILURE
@@ -60,6 +62,10 @@ main () {
         ;;
       -d | --dryrun) 
         FLAG_DRYRUN=true
+        shift
+        ;; 
+      -q | --quiet) 
+        FLAG_QUIET=true
         shift
         ;; 
       -f | --force) 

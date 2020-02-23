@@ -10,12 +10,15 @@ function execute () {
   local exec_command=$1
   local alt_text=${2:-${1}}
   local flag_dryrun=${3:-$FLAG_DRYRUN}
+  local flag_quiet=${3:-$FLAG_QUIET}
 
   if [[ "${flag_dryrun}" == false ]]; then
-    echo "+ ${alt_text}" | sed 's/  */ /g'
+    if [[ "${flag_quiet}" == false ]]; then
+      echo "# ${alt_text}" | awk '{$1=$1;print}'
+    fi
     eval "${exec_command}"
   else
-    echo "${exec_command}" | sed 's/  */ /g'
+    echo "${exec_command}" | awk '{$1=$1;print}'
   fi
 }
 # readonly definition of a function throws an error if another function 

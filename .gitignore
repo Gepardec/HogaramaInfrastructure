@@ -1,11 +1,13 @@
 # files created from templates containing secret values
 fluent.conf
 amq-deploymentconfig.yml
+amq-credentials.yml
 fluentd-buildconfig.yml
 grafana-configmap.yml
 grafana-crd.yml
 hogajama-binary-bc.yml
 hogajama-run-bc.yml
+mongodb-credentials.yml
 s2i-builder-maven-bc.yml
 client-hogarama-crd.yml
 realm-gepardec-crd.yml

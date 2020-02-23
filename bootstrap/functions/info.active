@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function info () {
+  local text=${1}
+  echo INFO: ${text}
+}
+# readonly definition of a function throws an error if another function 
+# with the same name is defined a second time
+readonly -f info
+[ "$?" -eq "0" ] || return $?
+

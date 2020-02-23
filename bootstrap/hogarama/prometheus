@@ -7,12 +7,7 @@ prometheus() {
   local oc_cluster=${4}
 
   oc-create-resource "admin" ${namespace} "resources/prometheus/prometheus-subscription.yml"
-
-  execute """
-  oc delete --kubeconfig=/home/.admin secret prometheus-scrape-config -n ${namespace};
-  oc create --kubeconfig=/home/.admin -n ${namespace} secret generic prometheus-scrape-config --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml
-  """
-  
+  oc-create-resource-from "secret" "prometheus-scrape-config" "generic --from-file=${TOPLEVEL_DIR}/secrets/prometheus/scrape-config.yml"
   oc-create-resource "admin" ${namespace} "resources/prometheus/crd.yml"
   oc-create-resource "admin" ${namespace} "resources/prometheus/route.yml"
 }

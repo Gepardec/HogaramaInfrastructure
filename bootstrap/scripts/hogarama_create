@@ -13,6 +13,7 @@ readonly TOPLEVEL_DIR=$( cd ${SCRIPT_DIR}/../.. > /dev/null && pwd )
 ####################
 
 FLAG_DRYRUN=false
+FLAG_QUIET=false
 FLAG_FORCE=false
 
 ########## 
@@ -30,18 +31,16 @@ done
 usage_message () {
   echo """Usage:
     $PROGNAME [OPT ..]
-    required
       --resource)                    ... multiple definitions possible
       --namespace)                   ... openshift project or kubernetes namespace
       --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
       --oc-cluster)                  ... e.g. https://api.crc.testing:6443
       --git-branch)                  ... specify the git branch for oc resource references
 
-    optional
-      --dryrun)                      ... only print commands that would be executed
       -f | --force)                  ... recreate without prompt
-
-    general
+      -d | --dryrun)                 ... only print commands that would be executed
+      -q | --quiet)                  ... quiet
+      
       -h | --help)                   ... print this help text
     """
 }
@@ -59,7 +58,7 @@ main () {
   local oc_cluster=""
 
   # getopts
-  local opts=`getopt -o hfr: --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun,resource: -- "$@"`
+  local opts=`getopt -o hfr:q --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun,resource:,quiet -- "$@"`
   local opts_return=$?
   if [ ${opts_return} != 0 ]; then
       echo
@@ -102,6 +101,10 @@ main () {
           FLAG_DRYRUN=true
           shift
           ;;
+      -q | --quiet) 
+        FLAG_QUIET=true
+        shift
+        ;; 
       *)
           break
           ;;
@@ -148,10 +151,12 @@ main () {
     fi
   fi
 
+  set -e
   for resource in ${resources[@]}; do
     source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
     ${resource} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
   done
+  set +e
 }
 readonly -f main
 [ "$?" -eq "0" ] || return $?
