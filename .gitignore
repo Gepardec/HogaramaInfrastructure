@@ -11,7 +11,8 @@ mongodb-credentials.yml
 s2i-builder-maven-bc.yml
 client-hogarama-crd.yml
 realm-gepardec-crd.yml
-secrets/secrets.yml
+secrets.ini
+secrets.yml
 
 # Compiled class file
 *.class
@@ -67,6 +68,3 @@ target/
 .aws
 .itandtel
 
-secrets.ini
-secrets.yml
-secrets.json
