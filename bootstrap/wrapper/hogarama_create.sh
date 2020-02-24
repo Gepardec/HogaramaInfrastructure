@@ -38,11 +38,16 @@ main () {
   ####
   # CORE LOGIC
   
+  options=" --oc-admin-token "$(oc whoami -t)" \
+            --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
+            --namespace hogarama \
+            --git-branch $(git branch | grep \* | cut -d ' ' -f2)"
+
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
-    gepardec/j2cli:latest \
-    hogarama/bootstrap/scripts/hogarama_template ${*}"
+    quay.io/openshift/origin-cli:latest \
+    /mnt/hogarama/bootstrap/scripts/hogarama_create.sh ${options} ${*}"
   set +e
 }
  

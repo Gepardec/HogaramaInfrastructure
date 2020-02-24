@@ -8,3 +8,4 @@ spec:
   source: community-operators
   sourceNamespace: openshift-marketplace
   version: 3.0.1
+  startingCSV: grafana-operator.3.0.1

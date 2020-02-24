@@ -154,7 +154,7 @@ main () {
   set -e
   for resource in ${resources[@]}; do
     source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
-    ${resource} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
+    ${resource%.sh} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
   done
   set +e
 }

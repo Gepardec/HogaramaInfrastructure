@@ -2,7 +2,7 @@
 
 function keycloak () {
   local git_branch=${1}
-  local namespace=${2}
+  local namespace=gepardec #KEYCLOAK DARF NICHT IM NS HOGARAMA LAUFEN!!!!
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
