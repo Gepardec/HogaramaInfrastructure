@@ -68,3 +68,5 @@ target/
 .itandtel
 
 secrets.ini
+secrets.yml
+secrets.json
