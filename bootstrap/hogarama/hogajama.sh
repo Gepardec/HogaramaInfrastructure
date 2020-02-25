@@ -17,6 +17,7 @@ function hogajama () {
   oc-create-resource-from "cm" "hogajama-standalone" "--from-file=${TOPLEVEL_DIR}/configs/hogajama/standalone-openshift.xml"  
   oc-create-resource "admin" ${namespace} "resources/hogajama/eap-subscription.yml"
   oc-create-resource "admin" ${namespace} "resources/hogajama/crd.yml"
+  oc-create-resource "admin" ${namespace} "resources/hogajama/route.yml"
 
 }
 readonly -f hogajama
