@@ -31,6 +31,7 @@ spec:
           unzip -o keycloak.zip -d /opt/eap/ && \
           rm keycloak.zip
       USER jboss
+      ENV HOGAJAMA_DB={{ HOGAJAMA_DB }} MONGODB_PW={{ MONGODB_PW }}
       ENTRYPOINT [ "/opt/eap/bin/entrypoint.sh" ]
     images:
       - from:
