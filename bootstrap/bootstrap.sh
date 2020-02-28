@@ -44,7 +44,7 @@ main () {
                           "keycloak.sh"
                           "amq.sh"
                           "prometheus.sh"
-                          "grafana-operator.sh"
+                          "grafana.sh"
                           "mongodb.sh"
                           "fluentd.sh"
                           "hogajama.sh"
