@@ -16,7 +16,7 @@ FLAG_DRYRUN=false
 FLAG_QUIET=false
 FLAG_FORCE=false
 
-########## 
+##########
 # SOURCE #
 ##########
 
@@ -27,7 +27,7 @@ done
 ##########
 # SCRIPT #
 ##########
- 
+
 usage_message () {
   echo """Usage:
     $PROGNAME [OPT ..]
@@ -40,7 +40,6 @@ usage_message () {
       -f | --force)                  ... recreate without prompt
       -d | --dryrun)                 ... only print commands that would be executed
       -q | --quiet)                  ... quiet
-      
       -h | --help)                   ... print this help text
     """
 }
@@ -51,7 +50,7 @@ readonly -f usage_message
 
 main () {
   # initial values
-  local resources=()
+  local resource=""
   local git_branch=""
   local namespace=""
   local oc_admin_token=""
@@ -60,7 +59,7 @@ main () {
   # getopts
   local opts=`getopt -o hfr:q --long git-branch:,oc-admin-token:,oc-cluster:,namespace:,help,force,dryrun,resource:,quiet -- "$@"`
   local opts_return=$?
-  if [ ${opts_return} != 0 ]; then
+  if [[ ${opts_return} != 0 ]]; then
       echo
       (>&2 echo "failed to fetch options via getopt")
       echo
@@ -70,7 +69,7 @@ main () {
   while true ; do
       case "$1" in
       --resource)
-          resources+=(${2})
+          resource=${2}
           shift 2
           ;;
       --oc-admin-token)
@@ -101,10 +100,10 @@ main () {
           FLAG_DRYRUN=true
           shift
           ;;
-      -q | --quiet) 
+      -q | --quiet)
         FLAG_QUIET=true
         shift
-        ;; 
+        ;;
       *)
           break
           ;;
@@ -114,8 +113,8 @@ main () {
   ####
   # CHECK INPUT
   # check if all required options are given
-  
-  if [ -z "${git_branch}" ] || [ -z "${namespace}" ] || [ -z "${oc_admin_token}" ] || [ -z "${oc_cluster}" ]; then
+
+  if [ -z "${git_branch}" ] || [ -z "${namespace}" ] || [ -z "${oc_admin_token}" ] || [ -z "${resource}" ] || [ -z "${oc_cluster}" ]; then
       echo
       (>&2 echo "please provide all required options")
       echo
@@ -123,14 +122,7 @@ main () {
       return 1
   fi
 
-  if [ ${#resources[@]} -eq 0 ]; then
-    echo "please provide at least one '--resource RESOURCE' option"
-    echo
-    usage_message
-    echo
-    exit 1
-  fi
-  
+
   ####
   # CORE LOGIC
 
@@ -152,10 +144,8 @@ main () {
   fi
 
   set -e
-  for resource in ${resources[@]}; do
-    source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
-    ${resource%.sh} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
-  done
+  source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
+  ${resource%.sh} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
   set +e
 }
 readonly -f main

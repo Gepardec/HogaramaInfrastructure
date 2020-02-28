@@ -18,20 +18,20 @@
 # oc_setup #
 ############
 
-function hogarama-commons () {
+function hogarama_commons () {
   local git_branch=${1}
   local namespace=${2}
   local oc_admin_token=${3}
   local oc_cluster=${4}
 
-  oc-create-resource "admin" ${namespace} "resources/hogarama-commons/operator-group.yml"
+  oc-create-resource "admin" ${namespace} "resources/hogarama_commons/operator-group.yml"
   oc-create-resource-from "sa" "anyuid-builder"  
-  oc-create-resource "admin" ${namespace} "resources/hogarama-commons/hogajama-anyuid.yml"
+  oc-create-resource "admin" ${namespace} "resources/hogarama_commons/hogajama-anyuid.yml"
   execute """
     oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
     oc --kubeconfig=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
     oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid
   """
 }
-readonly -f hogarama-commons
+readonly -f hogarama_commons
 [ "$?" -eq "0" ] || return $?
