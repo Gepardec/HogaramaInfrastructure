@@ -15,3 +15,4 @@ spec:
   standaloneConfigMap:
     key: standalone-openshift.xml
     name: hogajama-standalone
+  imagePullPolicy: always

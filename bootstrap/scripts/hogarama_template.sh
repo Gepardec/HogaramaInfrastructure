@@ -97,7 +97,7 @@ main () {
   # CORE LOGIC
   set -e
   for resource in ${resources[@]}; do
-    j2-template "${TOPLEVEL_DIR}" "${resource%.sh}"
+    j2-template "${TOPLEVEL_DIR}" "${resource}"
   done
   set +e
 }
