@@ -31,7 +31,7 @@ done
 usage_message () {
   echo """Usage:
     $PROGNAME [OPT ..]
-      --resource)                    ... multiple definitions possible
+      --resource)                    ... the resource that should be created, e.g. amq, mongodb.
       --namespace)                   ... openshift project or kubernetes namespace
       --oc-admin-token)              ... token priveleged enough to execute oc new-project, e.g. admin role
       --oc-cluster)                  ... e.g. https://api.crc.testing:6443
@@ -69,7 +69,7 @@ main () {
   while true ; do
       case "$1" in
       --resource)
-          resource=${2}
+          resource=${2,,}
           shift 2
           ;;
       --oc-admin-token)

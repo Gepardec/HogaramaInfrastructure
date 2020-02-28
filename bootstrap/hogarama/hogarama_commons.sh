@@ -27,9 +27,9 @@ function hogarama_commons () {
   oc-create-resource "admin" ${namespace} "resources/hogarama_commons/operator-group.yml"
   oc-create-resource "admin" ${namespace} "resources/hogarama_commons/anyuid-builder-serviceaccount.yml"
   oc-create-resource "admin" ${namespace} "resources/hogarama_commons/hogajama-anyuid.yml"
-  oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder
-  oc --kubeconfig=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder
-  oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid
+  execute "oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z anyuid-builder"
+  execute "oc --kubeconfig=/home/.admin -n ${namespace} policy add-role-to-user system:image-builder -z anyuid-builder"
+  execute "oc --kubeconfig=/home/.admin -n ${namespace} adm policy add-scc-to-user anyuid -z hogajama-anyuid"
 }
 readonly -f hogarama_commons
 [ "$?" -eq "0" ] || return $?
