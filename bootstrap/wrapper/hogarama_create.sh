@@ -32,6 +32,7 @@ FLAG_DRYRUN=""
 FLAG_FORCE=""
 FLAG_QUIET=""
 FLAG_HELP=""
+
 ##########
 # SCRIPT #
 ##########
@@ -51,7 +52,7 @@ main () {
   while true ; do
       case "$1" in
       --resource)
-          resource=${2}
+          resource=${2,,}
           shift 2
           ;;
       -f | --force)
@@ -75,35 +76,35 @@ main () {
       esac
   done
 
-  OPTS_NAME=OPTS_${resource^^}
-  OPTIONS=${!OPTS_NAME}
+  local opts_name=OPTS_${resource^^}
+  local options=${!opts_name}
 
-  if [[ "x${OPTIONS}" = "x" ]]; then
-    OPTIONS=${OPTS_DEFAULT}
+  if [[ "x${options}" = "x" ]]; then
+    options=${OPTS_DEFAULT}
   fi
 
   ## pipe through flags to underlying script ##
   if [[ "x${FLAG_FORCE}" != "x" ]]; then
-    OPTIONS="${OPTIONS} --force"
+    options="${options} --force"
   fi
 
   if [[ "x${FLAG_QUIET}" != "x" ]]; then
-    OPTIONS="${OPTIONS} --quiet"
+    options="${options} --quiet"
   fi
 
   if [[ "x${FLAG_DRYRUN}" != "x" ]]; then
-    OPTIONS="${OPTIONS} --dryrun"
+    options="${options} --dryrun"
   fi
 
    if [[ "x${FLAG_HELP}" != "x" ]]; then
-    OPTIONS="${OPTIONS} --help"
+    options="${options} --help"
   fi
 
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     quay.io/openshift/origin-cli:latest \
-    /mnt/hogarama/bootstrap/scripts/hogarama_create.sh --resource ${resource} ${OPTIONS}"
+    /mnt/hogarama/bootstrap/scripts/hogarama_create.sh --resource ${resource} ${options}"
   set +e
 }
  
