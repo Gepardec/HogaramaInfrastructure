@@ -144,8 +144,8 @@ main () {
   fi
 
   set -e
-  source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}
-  ${resource%.sh} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
+  source ${TOPLEVEL_DIR}/bootstrap/hogarama/${resource}.sh
+  ${resource} ${git_branch} ${namespace} ${oc_admin_token} ${oc_cluster}
   set +e
 }
 readonly -f main

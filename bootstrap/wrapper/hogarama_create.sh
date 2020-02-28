@@ -22,7 +22,7 @@ for functionFile in ${TOPLEVEL_DIR}/bootstrap/functions/*.active;
   do source ${functionFile}
 done
 
-source ${TOPLEVEL_DIR}/bootstrap/functions/bootstrap.options
+source ${TOPLEVEL_DIR}/bootstrap/functions/hogarama_create.options
 
 ###############
 # INIT VALUES #
@@ -31,7 +31,7 @@ source ${TOPLEVEL_DIR}/bootstrap/functions/bootstrap.options
 FLAG_DRYRUN=""
 FLAG_FORCE=""
 FLAG_QUIET=""
-
+FLAG_HELP=""
 ##########
 # SCRIPT #
 ##########
@@ -66,37 +66,44 @@ main () {
         FLAG_QUIET=true
         shift
         ;;
+      -h | --help)
+        FLAG_HELP=true
+        ;;
       *)
           break
           ;;
       esac
   done
 
-  opts_name=opts_${resource%.sh}
-  options=${!opts_name}
+  OPTS_NAME=OPTS_${resource^^}
+  OPTIONS=${!OPTS_NAME}
 
-  if [[ "x${options}" = "x" ]]; then
-    options=${opts_default}
+  if [[ "x${OPTIONS}" = "x" ]]; then
+    OPTIONS=${OPTS_DEFAULT}
   fi
 
   ## pipe through flags to underlying script ##
   if [[ "x${FLAG_FORCE}" != "x" ]]; then
-    options="${options} --force"
+    OPTIONS="${OPTIONS} --force"
   fi
 
   if [[ "x${FLAG_QUIET}" != "x" ]]; then
-    options="${options} --quiet"
+    OPTIONS="${OPTIONS} --quiet"
   fi
 
   if [[ "x${FLAG_DRYRUN}" != "x" ]]; then
-    options="${options} --dryrun"
+    OPTIONS="${OPTIONS} --dryrun"
+  fi
+
+   if [[ "x${FLAG_HELP}" != "x" ]]; then
+    OPTIONS="${OPTIONS} --help"
   fi
 
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     quay.io/openshift/origin-cli:latest \
-    /mnt/hogarama/bootstrap/scripts/hogarama_create.sh --resource ${resource} ${options} ${*}"
+    /mnt/hogarama/bootstrap/scripts/hogarama_create.sh --resource ${resource} ${OPTIONS}"
   set +e
 }
  

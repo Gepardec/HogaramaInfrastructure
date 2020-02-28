@@ -1,21 +1,21 @@
 #!/bin/bash
 
-opts_default=" --oc-admin-token "$(oc whoami -t)" \
+OPTS_DEFAULT=" --oc-admin-token "$(oc whoami -t)" \
             --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
             --namespace hogarama \
             --git-branch $(git branch | grep \* | cut -d ' ' -f2)"
 
-opts_keycloak=" --oc-admin-token "$(oc whoami -t)" \
+OPTS_KEYCLOAK=" --oc-admin-token "$(oc whoami -t)" \
             --oc-cluster https://api.p.aws.ocp.gepardec.com:6443 \
             --namespace gepardec \
             --git-branch $(git branch | grep \* | cut -d ' ' -f2)"
 
-#opts_hogarama_commons=
-#opts_amq=
-#opts_commons=
-#opts_fluentd=
-#opts_grafana=
-#opts_hogajama
-#opts_hogarama_commons=
-#opts_mongodb=
-#opts_prometheus=
+#OPTS_HOGARAMA_COMMONS=
+#OPTS_AMQ=
+#OPTS_COMMONS=
+#OPTS_FLUENTD=
+#OPTS_GRAFANA=
+#OPTS_HOGAJAMA
+#OPTS_HOGARAMA_COMMONS=
+#OPTS_MONGODB=
+#OPTS_PROMETHEUS=

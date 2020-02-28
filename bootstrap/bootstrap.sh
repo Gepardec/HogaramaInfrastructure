@@ -39,15 +39,15 @@ main () {
   # Declare Array of scripts that should be executed
   # Important as we have dependencies that require certain scripts to be run before others
 
-  declare -a resourceArr=("commons.sh"
-                          "hogarama_commons.sh"
-                          "keycloak.sh"
-                          "amq.sh"
-                          "prometheus.sh"
-                          "grafana.sh"
-                          "mongodb.sh"
-                          "fluentd.sh"
-                          "hogajama.sh"
+  declare -a resourceArr=("commons"
+                          "hogarama_commons"
+#                          "keycloak"
+                          "amq"
+                          "prometheus"
+                          "grafana"
+                          "mongodb"
+                          "fluentd"
+                          "hogajama"
                           )
  
   ####
