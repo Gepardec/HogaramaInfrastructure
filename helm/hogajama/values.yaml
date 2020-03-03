@@ -1,0 +1,10 @@
+---
+fluentd:
+  timezone: "Europe/Vienna"
+  imageStream:
+    name: "fluentd-hogarama"
+    base:
+      name: "edge-debian"
+      kind: "DockerImage"
+      from: "fluent/fluentd:edge-debian"
+...
