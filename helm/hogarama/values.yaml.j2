@@ -1,14 +1,19 @@
 ---
-global:
-  appVersion: 0.0.1
 fluentd:
   timezone: "Europe/Vienna"
   imageStream:
     name: "fluentd-hogarama"
     base:
-      name: "edge-debian"
+      name: fluentd
+      tag: "edge-debian"
       kind: "DockerImage"
       from: "fluent/fluentd:edge-debian"
+  trigger:
+    github:
+      secret: "abc"
+    generic:
+      secret: "def"
+
 amq:
   credentials:
     amq_password: "{{ AMQ_PASSWORD | b64encode }}"
