@@ -13,6 +13,7 @@ client-hogarama-crd.yml
 realm-gepardec-crd.yml
 secrets.ini
 secrets.yml
+values.yml
 
 # Compiled class file
 *.class

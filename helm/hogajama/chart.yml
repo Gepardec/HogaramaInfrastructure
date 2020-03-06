@@ -21,7 +21,7 @@ version: 0.1.0
 appVersion: 0.0.1
 
 dependencies:
-  - name: hogarama_commons
-    condition: hogarama_commons.enabled
+  - name: amq
+    condition: amq.enabled
   - name: fluentd
     condition: fluentd.enabled
