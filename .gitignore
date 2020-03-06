@@ -69,3 +69,5 @@ target/
 .aws
 .itandtel
 
+/helm/hogarama/Values.yml
+/helm/hogarama/Values.yaml

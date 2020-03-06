@@ -7,7 +7,7 @@ items:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
   metadata:
-    name: {{ .values.imageStream.name }}
+    name: {{ .Values.imagestream.name }}
   spec:
     lookupPolicy:
       local: false
@@ -20,11 +20,11 @@ items:
       local: false
     tags:
     - from:
-        kind: {{ .values.imageStream.base.kind }}
-        name: {{ .values.imageStream.base.from }}
+        kind: {{ .Values.imageStream.base.kind }}
+        name: {{ .Values.imageStream.base.from }}
       generation: 1
       importPolicy: {}
-      name: {{ .values.imageStream.base.name }}
+      name: {{ .Values.imageStream.base.name }}
       referencePolicy:
         type: Source
 ...

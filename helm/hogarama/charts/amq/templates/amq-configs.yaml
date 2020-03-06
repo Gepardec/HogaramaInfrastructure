@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: amq-configs
+data:
+  {{- $files := .Files }}
+  {{- range tuple "broker.xml" "entrypoint.sh" }}
+  {{ . }}: |-
+    {{ $files.Get . }}
+  {{- end }}
+...

@@ -18,8 +18,8 @@ spec:
       containers:
         - env:
             - name: TZ
-              value: {{ .values.timezone }}
-          image: {{ .values.imageStream.name }}:latest
+              value: {{ .Values.timezone }}
+          image: {{ .Values.imageStream.name }}:latest
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -70,6 +70,6 @@ spec:
           - fluentd
         from:
           kind: ImageStreamTag
-          name: {{ .values.imageStream.name }}:latest
+          name: {{ $.Values.imageStream.name }}:latest
       type: ImageChange
     - type: ConfigChange
