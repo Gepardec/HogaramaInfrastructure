@@ -97,7 +97,11 @@ main () {
   # CORE LOGIC
   set -e
   for resource in ${resources[@]}; do
-    j2-template "${TOPLEVEL_DIR}" "${resource}"
+    if [[ ${resource} == helm ]]; then
+        j2-template "${TOPLEVEL_DIR}" "../${resource}"
+    else
+        j2-template "${TOPLEVEL_DIR}" "${resource}"
+    fi
   done
   set +e
 }
