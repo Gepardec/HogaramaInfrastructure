@@ -71,3 +71,4 @@ target/
 
 /helm/hogarama/Values.yml
 /helm/hogarama/Values.yaml
+/helm/hogarama/values.yaml

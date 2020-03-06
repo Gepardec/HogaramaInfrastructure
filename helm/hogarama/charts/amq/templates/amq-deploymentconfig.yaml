@@ -33,7 +33,7 @@ spec:
         envFrom:
         - secretRef:
             name: amq-credentials
-        image: {{ .Values.imageStream.name }}:latest
+        image: {{ .Values.deploymentconfig.imageStream.name }}:latest
         imagePullPolicy: Always
         name: amq
         ports:
@@ -88,5 +88,5 @@ spec:
       - amq
       from:
         kind: ImageStreamTag
-        name: {{ .Values.imageStream.name }}:latest
+        name: {{ .Values.deploymentconfig.imageStream.name }}:latest
     type: ImageChange
