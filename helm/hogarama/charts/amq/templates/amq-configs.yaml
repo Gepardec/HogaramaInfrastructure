@@ -4,9 +4,10 @@ kind: ConfigMap
 metadata:
   name: amq-configs
 data:
-  {{- $files := .Files }}
-  {{- range tuple "broker.xml" "entrypoint.sh" }}
-  {{ . }}: |-
-    {{ $files.Get . }}
-  {{- end }}
+  {{ range $path := .Files.Glob "broker.ks" "entrypoint.sh" }}
+    {{- range tuple "broker.xml" "entrypoint.sh" }}
+    {{ . }}: |-
+      {{ .Files.Get $path }}
+    {{- end }}
+  {{ end}}
 ...

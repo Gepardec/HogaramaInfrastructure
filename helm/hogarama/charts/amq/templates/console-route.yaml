@@ -1,3 +1,4 @@
+---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
@@ -12,3 +13,4 @@ spec:
   port:
     targetPort: 8161-tcp
   wildcardPolicy: None
+...

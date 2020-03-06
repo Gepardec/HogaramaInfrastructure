@@ -1,10 +1,12 @@
-apiVersion: v1
-kind: Template
+---
+kind: List
+apiVersion: image.openshift.io/v1
+kind: List
 metadata:
-  name: hogarama-amq-is
-objects:
+  name: amq
+items:
 - kind: ImageStream
-  apiVersion: v1
+  apiVersion: image.openshift.io/v1
   metadata:
     name: amq-broker-72-openshift
     labels:
@@ -24,7 +26,7 @@ objects:
         referencePolicy:
           type: Source
 - kind: ImageStream
-  apiVersion: v1
+  apiVersion: image.openshift.io/v1
   metadata:
     name: amq
     labels:
@@ -32,3 +34,4 @@ objects:
   spec:
     lookupPolicy:
       local: false
+...
