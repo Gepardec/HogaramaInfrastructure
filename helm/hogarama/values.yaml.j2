@@ -1,4 +1,6 @@
 ---
+global:
+  appVersion: 0.0.1
 fluentd:
   timezone: "Europe/Vienna"
   imageStream:
@@ -8,13 +10,13 @@ fluentd:
       kind: "DockerImage"
       from: "fluent/fluentd:edge-debian"
 amq:
-    credentials:
-        amq_password: "{{ AMQ_PASSWORD | b64encode }}"
-        amq_user: "{{ AMQ_USER | b64encode }}"
-    deploymentconfig:
-        amq_truststore_password: "{{ AMQ_TRUSTSTORE_PASSWORD }}"
-        amq_keystore_password: "{{ AMQ_KEYSTORE_PASSWORD }}"
-        timezone: "Europe/Vienna"
-        imageStream:
-            name: "amq-broker-72-openshift"
+  credentials:
+    amq_password: "{{ AMQ_PASSWORD | b64encode }}"
+    amq_user: "{{ AMQ_USER | b64encode }}"
+  deploymentconfig:
+    amq_truststore_password: "{{ AMQ_TRUSTSTORE_PASSWORD }}"
+    amq_keystore_password: "{{ AMQ_KEYSTORE_PASSWORD }}"
+    timezone: "Europe/Vienna"
+    imageStream:
+      name: "amq-broker-72-openshift"
 ...
