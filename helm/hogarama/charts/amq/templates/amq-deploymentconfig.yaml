@@ -80,6 +80,7 @@ spec:
           sources:
           - secret:
               name: amq-secret
+
   test: false
   triggers:
   - type: ConfigChange

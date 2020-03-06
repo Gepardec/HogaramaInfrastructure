@@ -1,7 +1,6 @@
 ---
 kind: List
 apiVersion: image.openshift.io/v1
-kind: List
 metadata:
   name: amq
 items:
