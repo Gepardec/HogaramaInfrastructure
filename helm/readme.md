@@ -5,4 +5,4 @@
 - Install Hogarama_Commons via provided bash scripts
 
 ## Templating values.yml.j2
-- run bootstrap/wrapper/hogarama_template.sh --resource helm
+- run `bootstrap/wrapper/hogarama_template.sh --resource helm`

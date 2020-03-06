@@ -1,0 +1,38 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: fluentd
+  name: fluentd
+spec:
+  serviceAccount: anyuid-builder
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'fluentd-hogarama:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: "Dockerfile"
+    dockerfile: |-
+{{ .Files.Get "files/Dockerfile" | indent 6 }}
+    configMaps:
+    - configMap:
+        name: fluentd-entrypoint
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: '{{ .Values.imageStream.base.name }}:{{ .Values.imageStream.base.tag }}'
+    type: Docker
+  triggers:
+    - github:
+        secret: {{ .Values.trigger.github.secret }}
+      type: GitHub
+    - generic:
+        secret: {{ .Values.trigger.github.secret }}
+      type: Generic
+    - imageChange:
+      type: ImageChange
+    - type: ConfigChange
