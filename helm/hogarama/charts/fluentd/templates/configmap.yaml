@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fluentd-entrypoint
-data:
-{{ (.Files.Glob "files/entrypoint.sh").AsConfig | indent 2 }}
-...
-  

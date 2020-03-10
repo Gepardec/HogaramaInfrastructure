@@ -1,0 +1,9 @@
+---
+imageStream:
+  name: "fluentd-hogarama"
+  base:
+    name: fluentd-elasticsearch
+    tag: "v2.4.0"
+    kind: "DockerImage"
+    from: "gcr.io/google-containers/fluentd-elasticsearch:v2.4.0"
+...

@@ -16,10 +16,7 @@ spec:
   source:
     type: "Dockerfile"
     dockerfile: |-
-{{ .Files.Get "files/Dockerfile" | indent 6 }}
-    configMaps:
-    - configMap:
-        name: fluentd-entrypoint
+{{ .Files.Get "files/fluentd/Dockerfile" | indent 6 }}
   strategy:
     dockerStrategy:
       from:
@@ -27,12 +24,6 @@ spec:
         name: '{{ .Values.imageStream.base.name }}:{{ .Values.imageStream.base.tag }}'
     type: Docker
   triggers:
-    - github:
-        secret: {{ .Values.trigger.github.secret }}
-      type: GitHub
-    - generic:
-        secret: {{ .Values.trigger.github.secret }}
-      type: Generic
     - imageChange:
       type: ImageChange
     - type: ConfigChange
