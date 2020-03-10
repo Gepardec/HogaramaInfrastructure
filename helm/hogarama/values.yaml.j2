@@ -9,15 +9,14 @@ fluentd:
       kind: "DockerImage"
       from: "fluent/fluentd:edge-debian"
   trigger:
-    github: 
+    github:
       secret: "abc"
     generic:
       secret: "def"
-
 amq:
   credentials:
     amq_password: "{{ AMQ_PASSWORD | b64encode }}"
-    amq_user: {{ AMQ_USER | b64encode }}"
+    amq_user: "{{ AMQ_USER | b64encode }}"
   deploymentconfig:
     amq_truststore_password: "{{ AMQ_TRUSTSTORE_PASSWORD }}"
     amq_keystore_password: "{{ AMQ_KEYSTORE_PASSWORD }}"
