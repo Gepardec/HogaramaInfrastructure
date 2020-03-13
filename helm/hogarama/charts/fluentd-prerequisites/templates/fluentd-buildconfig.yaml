@@ -5,7 +5,7 @@ metadata:
     app: fluentd
   name: fluentd
 spec:
-  serviceAccount: anyuid-builder
+  serviceAccount: builder
   output:
     to:
       kind: ImageStreamTag
