@@ -81,7 +81,7 @@ main () {
   ####
   # CORE LOGIC
 
-  execute "helm template ${TOPLEVEL_DIR}/helm/hogarama -f ${TOPLEVEL_DIR}/helm/hogarama/dummy-values.yaml"
+  execute "helm template ${TOPLEVEL_DIR}/helm/hogarama"
   
 }
 readonly -f main
