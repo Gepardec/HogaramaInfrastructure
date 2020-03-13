@@ -74,11 +74,10 @@ main () {
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     gepardec/j2cli:latest \
     hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH=$(git branch | grep \* | cut -d ' ' -f2) "${extravars}" "
+  
+  execute "cd ${SCRIPT_DIR} && helm repo add stable https://kubernetes-charts.storage.googleapis.com"
+  execute "cd ${SCRIPT_DIR} && helm dep update"
   set +e
 }
 
 main $@
-
-helm repo add postgres https://charts.bitnami.com/bitnami
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
-helm dep update
