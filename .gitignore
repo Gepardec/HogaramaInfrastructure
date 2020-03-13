@@ -84,3 +84,8 @@ target/
 /helm/hogarama/Chart.yaml
 /helm/hogarama/charts/prometheus/Chart.yaml
 /helm/hogarama/charts/prometheus/values.yaml
+/resources/grafana/grafana-datasource.yml
+/helm/hogarama/charts/grafana/values.yaml
+/helm/hogarama/charts/grafana/Chart.yaml
+/helm/hogarama/charts/grafana/Chart.yaml
+/helm/hogarama/charts/grafana/values.yaml
