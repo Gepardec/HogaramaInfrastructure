@@ -82,3 +82,5 @@ target/
 /helm/hogarama/charts/amq/Chart.yaml
 /helm/hogarama/charts/amq/values.yaml
 /helm/hogarama/Chart.yaml
+/helm/hogarama/charts/prometheus/Chart.yaml
+/helm/hogarama/charts/prometheus/values.yaml
