@@ -93,3 +93,4 @@ target/
 /helm/hogarama/charts/mongodb/values.yaml
 /helm/hogarama/charts/hogajama/values.yaml
 /helm/hogarama/charts/hogajama/Chart.yaml
+/resources/keycloak/operator-group.yml
