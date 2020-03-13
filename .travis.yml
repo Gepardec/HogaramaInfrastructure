@@ -19,4 +19,5 @@ notifications:
     on_success: never
     on_failure: always
 script:
-  - travis_terminate 0
+  - helm/tests/dummy-values.sh
+  - helm/tests/template.sh
