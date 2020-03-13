@@ -9,7 +9,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'fluentd-hogarama:latest'
+      name: '{{ .Values.imageStream.name }}:latest'
   postCommit: {}
   resources: {}
   runPolicy: Serial

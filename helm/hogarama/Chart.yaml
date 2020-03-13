@@ -21,14 +21,6 @@ version: 0.1.0
 appVersion: 0.0.1
 
 dependencies:
-  - name: hogarama-commons
-    condition: hogarama-commons.enabled
-  - name: commons
-    condition: commons.enabled
-  - name: amq
-    condition: amq.enabled
-  - name: commons
-    condition: commons.enabled
   - name: fluentd
     version: 2.4.0
     repository: "@stable"
