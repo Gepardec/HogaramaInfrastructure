@@ -20,3 +20,6 @@
 .idea/
 *.tmproj
 .vscode/
+*.j2
+Chart.lock
+helm_prerequisites.sh

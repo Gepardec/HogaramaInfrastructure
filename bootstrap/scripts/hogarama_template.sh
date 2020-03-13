@@ -46,9 +46,10 @@ main () {
   # INITIAL VALUES
   local resources=()
   local options=""
+  local extravars=""
 
   # GETOPT
-  OPTS=`getopt -o dhfr:q --long dryrun,help,force,resource:,quiet -- "$@"`
+  OPTS=`getopt -o dhtfer:q --long dryrun,help,force,resource:,quiet -- "$@"`
   if [ $? != 0 ]; then
     echo "failed to fetch options via getopt"
     exit $EXIT_FAILURE
@@ -60,23 +61,27 @@ main () {
         resources+=( "${2}" )
         shift 2
         ;;
-      -d | --dryrun) 
+      -d | --dryrun)
         FLAG_DRYRUN=true
         shift
-        ;; 
-      -q | --quiet) 
+        ;;
+      -q | --quiet)
         FLAG_QUIET=true
         shift
-        ;; 
-      -f | --force) 
+        ;;
+      -f | --force)
         FLAG_FORCE=true
         shift
-        ;; 
-      -h | --help) 
+        ;;
+      -h | --help)
         usage_message
         exit 0
         ;;
-      *) 
+      -e )
+        extravars="${extravars} -e ${2}"
+        shift 2
+        ;;
+      *)
         break
         ;;
     esac
@@ -98,9 +103,9 @@ main () {
   set -e
   for resource in ${resources[@]}; do
     if [[ ${resource} == helm ]]; then
-        j2-template "${TOPLEVEL_DIR}" "../${resource}"
+        j2-template "${TOPLEVEL_DIR}" "../${resource}" "${extravars}"
     else
-        j2-template "${TOPLEVEL_DIR}" "${resource}"
+        j2-template "${TOPLEVEL_DIR}" "${resource}" "${extravars}"
     fi
   done
   set +e

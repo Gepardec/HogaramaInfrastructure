@@ -1,4 +1,4 @@
-
+apiVersion: security.openshift.io/v1
 allowHostDirVolumePlugin: false
 allowHostIPC: false
 allowHostNetwork: false
@@ -8,11 +8,10 @@ allowPrivilegeEscalation: true
 allowPrivilegedContainer: false
 allowedCapabilities: []
 defaultAddCapabilities: []
-apiVersion: security.openshift.io/v1
 fsGroup:
   type: RunAsAny
 groups:
-- system:cluster-admins
+  - system:cluster-admins
 kind: SecurityContextConstraints
 metadata:
   annotations:
@@ -22,7 +21,7 @@ metadata:
 priority: 10
 readOnlyRootFilesystem: false
 requiredDropCapabilities:
-- MKNOD
+  - MKNOD
 runAsUser:
   type: RunAsAny
 seLinuxContext:
@@ -30,12 +29,12 @@ seLinuxContext:
 supplementalGroups:
   type: RunAsAny
 users:
-- system:serviceaccount:{{ .Release.Namespace }}:anyuid-builder
-- system:serviceaccount:{{ .Release.Namespace }}:hogajama-anyuid
+  - system:serviceaccount:{{ .Release.Namespace }}:anyuid-builder
+  - system:serviceaccount:{{ .Release.Namespace }}:hogajama-anyuid
 volumes:
-- configMap
-- downwardAPI
-- emptyDir
-- persistentVolumeClaim
-- projected
-- secret
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
