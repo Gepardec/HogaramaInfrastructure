@@ -13,4 +13,5 @@ spec:
       type: prometheus
       url: {{ .Values.DataSource.url }}
       version: 1
+      tlsSkipVerify: true
   name: grafana-datasources.yaml
