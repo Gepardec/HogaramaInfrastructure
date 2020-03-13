@@ -75,3 +75,10 @@ target/
 /helm/hogarama/Values.yml
 /helm/hogarama/Values.yaml
 /helm/hogarama/values.yaml
+/helm/hogarama/charts/hogarama-commons/Chart.yaml
+/helm/hogarama/charts/fluentd-prerequisites/values.yaml
+/helm/hogarama/charts/fluentd-prerequisites/Chart.yaml
+/helm/hogarama/charts/amq/Values.yaml
+/helm/hogarama/charts/amq/Chart.yaml
+/helm/hogarama/charts/amq/values.yaml
+/helm/hogarama/Chart.yaml
