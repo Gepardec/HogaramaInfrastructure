@@ -91,3 +91,5 @@ target/
 /helm/hogarama/charts/grafana/values.yaml
 /helm/hogarama/charts/mongodb/Chart.yaml
 /helm/hogarama/charts/mongodb/values.yaml
+/helm/hogarama/charts/hogajama/values.yaml
+/helm/hogarama/charts/hogajama/Chart.yaml
