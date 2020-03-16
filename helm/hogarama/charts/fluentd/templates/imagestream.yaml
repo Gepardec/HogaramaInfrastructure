@@ -2,7 +2,10 @@
 apiVersion: image.openshift.io/v1
 kind: List
 metadata:
-  app: fluentd
+  labels:
+    app: fluentd
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    helm.sh/revision: "{{ .Release.Revision }}"
   name: fluentd
 items:
 - apiVersion: image.openshift.io/v1

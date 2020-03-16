@@ -1,11 +1,17 @@
+---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
     app: fluentd
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    helm.sh/revision: "{{ .Release.Revision }}"
   name: fluentd
 spec:
   serviceAccount: builder
+  resources:
+    requests:
+      memory: 400Mi
   output:
     to:
       kind: ImageStreamTag
@@ -16,7 +22,10 @@ spec:
   source:
     type: "Dockerfile"
     dockerfile: |-
-{{ .Files.Get "files/fluentd/Dockerfile" | indent 6 }}
+{{ .Files.Get "files/Dockerfile" | indent 6 }}
+    configMaps:
+      - configMap:
+          name: fluentd-entrypoint
   strategy:
     dockerStrategy:
       from:
@@ -27,3 +36,4 @@ spec:
     - imageChange:
       type: ImageChange
     - type: ConfigChange
+...

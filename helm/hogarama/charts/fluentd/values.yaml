@@ -1,0 +1,20 @@
+---
+global:
+  timezone: "Europe/Vienna"
+
+credentials:
+  mq:
+    username: "mq_habarama"
+    password: "mq_habarama_pass"
+  db:
+    username: "hogajama"
+    password: "hogajama@mongodb"
+
+imageStream:
+  name: "fluentd-hogarama"
+  base:
+    name: fluentd-base
+    tag: "edge-debian"
+    kind: "DockerImage"
+    from: "fluent/fluentd:edge-debian"
+...
