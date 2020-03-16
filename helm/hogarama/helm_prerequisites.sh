@@ -1,4 +1,4 @@
-#!/bin/bash
+∂#!/bin/bash
 
 #######################
 # READ ONLY VARIABLES #
@@ -83,9 +83,11 @@ main () {
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     gepardec/j2cli:latest \
     hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH="${gitbranch}" "${extravars}" "
-  
-  execute "cd ${SCRIPT_DIR} && helm repo add stable https://kubernetes-charts.storage.googleapis.com"
-  execute "cd ${SCRIPT_DIR} && helm dep update"
+
+  execute "docker run --rm -it \
+    -v ${TOPLEVEL_DIR}:/mnt/hogarama \
+    fhochleitner/oc-helm:latest \
+    /mnt/hogarama/helm/hogarama/repository_prerequisites.sh"
   set +e
 }
 
