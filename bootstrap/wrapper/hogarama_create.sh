@@ -103,7 +103,7 @@ main () {
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
-    fhochleitner/oc-helm:latest \
+     quay.io/openshift/origin-cli:latest \
     /mnt/hogarama/bootstrap/scripts/hogarama_create.sh --resource ${resource} ${options}"
   set +e
 }
