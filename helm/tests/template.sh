@@ -80,9 +80,12 @@ main () {
 
   ####
   # CORE LOGIC
+  execute "docker run --rm -it \
+  -v ${TOPLEVEL_DIR}:/mnt/hogarama \
+  fhochleitner/oc-helm:latest \
+  helm template /mnt/hogarama/helm/hogarama"
 
-  execute "helm template ${TOPLEVEL_DIR}/helm/hogarama"
-  
+
 }
 readonly -f main
 [ "$?" -eq "0" ] || return $?
