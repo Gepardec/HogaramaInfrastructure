@@ -18,4 +18,3 @@ script:
   - mv secrets/dummy-secrets.yml secrets/secrets.yml
   - helm/hogarama/helm_prerequisites.sh -f -b dummy-branch
   - helm/tests/template.sh
-  - exit 1
