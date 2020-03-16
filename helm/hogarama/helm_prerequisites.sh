@@ -65,15 +65,17 @@ main () {
     options="${options} --dryrun"
   fi
 
-   if [[ "x${FLAG_HELP}" != "x" ]]; then
+  if [[ "x${FLAG_HELP}" != "x" ]]; then
     options="${options} --help"
   fi
+
+  GIT_BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
 
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     gepardec/j2cli:latest \
-    hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH=$(git branch | grep \* | cut -d ' ' -f2) "${extravars}" "
+    hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH="${GIT_BRANCH}" "${extravars}" "
   
   execute "cd ${SCRIPT_DIR} && helm repo add stable https://kubernetes-charts.storage.googleapis.com"
   execute "cd ${SCRIPT_DIR} && helm dep update"
