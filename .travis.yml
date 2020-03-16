@@ -4,6 +4,7 @@ version: "~> 1.0"
 os: linux
 
 language: shell
+before_install:
 
 notifications:
   email:
@@ -20,5 +21,5 @@ notifications:
     on_failure: always
 script:
   - mv secrets/dummy-secrets.yml secrets/secrets.yml
-  - helm/hogarama/helm_prerequisites.sh -f
+  - helm/hogarama/helm_prerequisites.sh -f -b dummy-branch
   - helm/tests/template.sh
