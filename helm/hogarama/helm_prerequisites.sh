@@ -29,8 +29,9 @@ FLAG_FORCE=""
 main () {
 
   local extravars=""
+  local gitbranch=""
   # getopts
-  local opts=`getopt -o he:fd --long help,force,dryrun -- "$@"`
+  local opts=`getopt -o hb:e:fd --long help,force,dryrun,branch: -- "$@"`
   local opts_return=$?
   eval set -- "$opts"
   while true ; do
@@ -48,6 +49,10 @@ main () {
         ;;
       -e )
         extravars="${extravars} -e ${2}"
+        shift 2
+        ;;
+      -b | --branch)
+        gitbranch="${2}"
         shift 2
         ;;
       *)
@@ -69,13 +74,15 @@ main () {
     options="${options} --help"
   fi
 
-  GIT_BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
+  if [[ "x${gitbranch}" == "x" ]]; then
+    gitbranch="$(git branch | grep \* | cut -d ' ' -f2)"
+  fi
 
   set -e
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     gepardec/j2cli:latest \
-    hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH="${GIT_BRANCH}" "${extravars}" "
+    hogarama/bootstrap/scripts/hogarama_template.sh --resource helm ${options} -e GIT_BRANCH="${gitbranch}" "${extravars}" "
   
   execute "cd ${SCRIPT_DIR} && helm repo add stable https://kubernetes-charts.storage.googleapis.com"
   execute "cd ${SCRIPT_DIR} && helm dep update"
