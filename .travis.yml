@@ -1,22 +1,17 @@
----
 version: "~> 1.0"
-
 os: linux
-
 language: shell
-before_install:
-
 notifications:
   email:
     on_success: change
     on_failure: never
   slack:
     rooms:
-      secure: "tTC3O33XDH0uNhlfLJw5684EuhmhC+mbNyveIqmSVHzUatteSiCohub7qrlfSIUwNFNKx3RL6iCUMymBTRh4NnX9+h9bVvaldA13enGwoV6OexPuXHsAK98YQw1gvInaih+d2971qYP6igOPNSkSI4xMrEKKBZSddGXBMciBANWnStDjycpr/ocHuy60ZlUJI5HLOL/gerEl7UuATCWzNlpKoAPAZexNnXAZedgFleyhVHDa5TEKuwKUdIflzU91VJW8y9a3056m1u3BYZf7leqPLV/IwsbnDqcTdkLcbp4QU/IQrB+UT2NVXPyx76pBgP6bXw0oWQylKZ3itDDpLTSga85DmXRQu9GDPdPHNvcZS8q1QwsdzVhPw1GWMGB9CtfcqA1PXRsvldlN06DKhoUj/aGIX4MXHkaE6kCjP3tYZY+8Dmdanpj86qZg0pGJQgXwHEKT/6R8FLc3FjN7UqIgBmV3cWGDf4MSmSBiEkDsIuEAvTMHR7lEeb9gwvelhuzNQrzBhOr8jYeB2uTRqpsozGC+A3GkMwOTMw75hvMRsbjrHyTSGAdbKl+BOc5yywlF/B/hZkCU2PSuSuio0bWaqA8DSeAZ04CiTJpPX1yxA7Kp1OM0Ob8wC1JQonEvqQja6+cap0mQDwi/qZ0dF6QvQW41nMhxpv/y7/5r/q4="
+      secure: RtFo61bif5/nWdA35CjIGQutziEY7hD8+PvSlpIGMJzJO889sws9CAoCVRVYV3Y1y+Kog5YG4yQ9q+ZRSxI5CFY+CZAdZOqBeB6T3DFZ9YKE5E3iEsGb99DE+eNkhiwDhlfFEtv99ibrLtdRkVekXuntlxy7uM+3YBk6X7qcmfpmi+HS0/fdtcwi5QqPfdv5gVu1TvaAtXnaLbagMw2AEpNCb4W/YbziqfF9FW+pe0MF1t5KdoouRYZ8/HIN+ggjD3oT4s9idKB4qD/qypTHgIlSSGfSQeSFiRlRnftqmpo7l/3fOOTNw7CF8XLihKP/qmE//eclVQUGethntWH0pOnuD+YgVGS1BhayElyJC5qZc8WVNgCXM4/qEuZQhntWZiUKcIvBq1ieDdN9+pse9RmrX1HP+aR37W5AnD8iVexzpejy1uMAFWriY0Wetdo8oz0udocjyYyCFcRv/ovSszafZWeGuu3t6bqE9Mxf21k1PIKv+bzbvLgPiLlU5PA/QCZ9vC60RcTC5WS0L7AjtjPQvr5njQVtgy0tJpA8kHUL6GK8CJAsGG5at5nljBPZsMFBLdYINc/lOfH6k6cXancFK9JtzoT8ZyWYdIwlZNDeJrn0Jp2dul91JzlhXGRByAfeKtIlkLZ7HG70I0dSi+p7QC8qGyjERbFGt4y4Djs=
     template:
       - "%{commit_subject}"
-      - "build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) @%{branch}"
-      - "by %{author} %{result} in %{duration}"
+      - build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) @%{branch}
+      - by %{author} %{result} in %{duration}
     on_success: never
     on_failure: always
 script:
