@@ -23,7 +23,7 @@ RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
 COPY entrypoint.sh /bin/
 RUN chmod +rx /bin/entrypoint.sh
 
-RUN chown -R fluent:fluent /fluentd
+#RUN chown -R fluent:fluent /fluentd
 
 USER 1001
 WORKDIR /home/fluent

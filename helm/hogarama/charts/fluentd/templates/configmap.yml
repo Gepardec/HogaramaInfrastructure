@@ -5,6 +5,7 @@ metadata:
   labels:
     app: fluentd
     helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    helm.sh/appVersion: "{{ .Chart.AppVersion }}"
     helm.sh/revision: "{{ .Release.Revision }}"
   name: fluentd-entrypoint
 data:

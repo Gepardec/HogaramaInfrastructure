@@ -1,4 +1,8 @@
 ---
+
+global:
+  timezone: "Europe/Vienna"
+
 amq:
   credentials:
     amq_password: "{{ AMQ_PASSWORD | b64encode }}"
@@ -10,7 +14,14 @@ amq:
     imageStream:
       name: "amq-broker-72-openshift"
 
-fluentd-prerequisites:
+fluentd:
+  credentials:
+    mq:
+      username: "{{ FLUENTD_USERNAME }}"
+      password: "{{ FLUENTD_PASSWORD }}"
+    db:
+      username: "{{ FLUENTD_MONGO_USERNAME }}"
+      password: "{{ FLUENTD_MONGO_PASSWORD }}"
   imageStream:
     name: "fluentd-hogarama"
     base:
