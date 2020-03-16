@@ -4,11 +4,11 @@ global:
 
 credentials:
   mq:
-    username: "mq_habarama"
-    password: "mq_habarama_pass"
+    username: "username"
+    password: "password"
   db:
-    username: "hogajama"
-    password: "hogajama@mongodb"
+    username: "username"
+    password: "password"
 
 imageStream:
   name: "fluentd-hogarama"
