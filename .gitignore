@@ -76,3 +76,5 @@ target/
 /helm/hogarama/values.yml
 /helm/hogarama/Values.yaml
 /helm/hogarama/values.yaml
+/resources/keycloak/operator-group.yml
+/resources/grafana/grafana-datasource.yml

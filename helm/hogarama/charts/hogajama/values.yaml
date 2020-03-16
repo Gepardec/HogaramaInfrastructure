@@ -1,0 +1,17 @@
+---
+trigger:
+  secret:
+    source_to_image:
+      github: MNfeGmgT-jG6IcM_Qu9y
+      generic: hE40E6tz5Ujmrje231eA
+    hogajama_run:
+      github: qvj2Z1axSokmTqNnP0Id
+      generic: FKlVTHcUQfOVcfFkkE-s
+    hogajama_binary:
+      github: Wq63PpZLl2SRdPKX5l
+      generic: HY6-6pQ-JxdDsvKVUb9p
+mongodb:
+  credentials:
+    database: hogajamadb
+    password: hogajama@mongodb
+...

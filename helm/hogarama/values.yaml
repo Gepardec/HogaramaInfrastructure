@@ -1,0 +1,42 @@
+---
+amq:
+  credentials:
+    amq_password: "YW1xQDEyMw=="
+    amq_user: "YW1x"
+  deploymentconfig:
+    amq_truststore_password: "765rjvb5rtzh8i7587fg"
+    amq_keystore_password: "765rjvb5rtzh8i7587fg"
+    timezone: "Europe/Vienna"
+    imageStream:
+      name: "amq-broker-72-openshift"
+
+fluentd-prerequisites:
+  imageStream:
+    name: "fluentd-hogarama"
+    base:
+      name: fluentd-elasticsearch
+      tag: "v2.4.0"
+      kind: "DockerImage"
+      from: "gcr.io/google-containers/fluentd-elasticsearch:v2.4.0"
+
+grafana:
+  DataSource:
+    url: prometheus-57-hogarama.cloud.itandtel.at
+  crd:
+    initial:
+      admin:
+        password: admin@123!
+        user: admin
+
+mongodb:
+  credentials:
+    admin:
+      password: YWRtaW5AbW9uZ29kYg==
+    database:
+      db: aG9nYWphbWFkYg==
+      user: aG9nYWphbWE=
+      password: aG9nYWphbWFAbW9uZ29kYg==
+      hogajama_db: aG9nYWphbWFkYg==
+      mongodb_pw: aG9nYWphbWFAbW9uZ29kYg==
+
+...
