@@ -87,7 +87,7 @@ main () {
   execute "docker run --rm -it \
     -v ${TOPLEVEL_DIR}:/mnt/hogarama \
     fhochleitner/oc-helm:latest \
-    cd /mnt/hogarama/helm/hogarama/ && helm repo add stable https://kubernetes-charts.storage.googleapis.com && helm dep update"
+    /mnt/hogarama/helm/hogarama/repository_prerequisites.sh"
   set +e
 }
 
