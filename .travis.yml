@@ -16,5 +16,5 @@ notifications:
     on_failure: always
 script:
   - mv secrets/dummy-secrets.yml secrets/secrets.yml
-  - helm/hogarama/helm_prerequisites.sh -f -b dummy-branch
+  - helm/hogarama/helm_prerequisites.sh -f -b ${TRAVIS_BRANCH:-master}
   - helm/tests/template.sh
